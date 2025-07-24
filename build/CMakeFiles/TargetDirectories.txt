@@ -1,0 +1,3 @@
+/home/kythhiwa/The_Minkowski_sum/build/CMakeFiles/the_minkowski_sum.dir
+/home/kythhiwa/The_Minkowski_sum/build/CMakeFiles/edit_cache.dir
+/home/kythhiwa/The_Minkowski_sum/build/CMakeFiles/rebuild_cache.dir

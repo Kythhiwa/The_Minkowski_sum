@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/the_minkowski_sum.dir/src/main.cpp.o CMakeFiles/the_minkowski_sum.dir/src/dcel.cpp.o -o the_minkowski_sum  /usr/lib/x86_64-linux-gnu/libOpenGL.so /usr/lib/x86_64-linux-gnu/libGLU.so /usr/lib/x86_64-linux-gnu/libglut.so /usr/lib/x86_64-linux-gnu/libGLX.so /usr/lib/x86_64-linux-gnu/libOpenGL.so /usr/lib/x86_64-linux-gnu/libXi.so 
