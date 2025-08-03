@@ -14,12 +14,12 @@ int main() {
     std::vector<std::pair<double,double>> p2 ={
         {-1, -2}, {1, -2}, {2, 3}
     };
-
     Dcel d1(p1, 1);
     Dcel d2(p2, 2);
 
     Dcel c;
     Dcel::merge(c, d1, d2);
-    c.DFS();
- //   c.print();
+   // c.test(d1, d2);
+    c.print();
+    c.dfs();
 }

@@ -8,6 +8,8 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <map>
+#include <stack>
+
 
 class Vertex;
 class HalfEdge;
@@ -18,15 +20,19 @@ class Dcel {
     std::vector<std::unique_ptr<HalfEdge>> halfEdge;
     std::vector<std::unique_ptr<Face>> face;
     int id_;
+
+    void add(const Dcel& source);// нет логики holes, объединяет только по вершинам и простым ребра, не корректные incident_edges
 public:
     Dcel();
     Dcel(std::vector<std::pair<double, double>> points, int id = 0);
     ~Dcel();
     
-    void add(const Dcel& source);// нет логики holes, объединяет только по вершинам и простым ребрам
-
+    
     static void merge(Dcel& dest, Dcel& a, Dcel& b);
     void print() const;
+    void fix();
+    void dfs() const;
+    void test(Dcel& a, Dcel&b);
 };
 
 

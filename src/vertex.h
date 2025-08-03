@@ -2,6 +2,7 @@
 #define VERTEX_H
 
 #include <cmath>
+#include <iostream>
 
 class HalfEdge;
 
@@ -28,6 +29,8 @@ public:
     bool operator<(const Vertex& other) const;
     bool operator>(const Vertex& other) const;
     bool operator==(const Vertex& other) const;
+
+    void print() const {std::cout << "("<< x_ << ":" << y_ << ")\n";}
 };
 
 

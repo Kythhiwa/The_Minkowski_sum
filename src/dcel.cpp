@@ -83,7 +83,7 @@ void Dcel::print() const {
         edge_ids[halfEdge[i].get()] = i;
         auto* e = halfEdge[i].get();
         std::cout << "  E" << i << ": V" << vertex_ids[e->getOrigin()] 
-                  << " -> V" << vertex_ids[e->getTwin()->getOrigin()] << "\n";
+                  << " -> V" << vertex_ids[e->getEndPoint()] << "\n";
     }
 
     std::cout << "\nFace Traversal:\n";
@@ -125,6 +125,8 @@ struct VertexComparator {
         return false; // Вершины считаются равными
     }
 };
+
+
 void Dcel::add(const Dcel& other) {
     std::map<const Vertex*, Vertex*> vertexMap;
     std::map<const HalfEdge*, HalfEdge*> halfEdgeMap;
@@ -192,6 +194,7 @@ void Dcel::add(const Dcel& other) {
 void Dcel::merge(Dcel& dest, Dcel& a, Dcel& b) {
     dest.add(a);
     dest.add(b);
+    
     double cur_y = 100;
     Sweepline T(cur_y);
     EventQueue<Event> Q;
@@ -223,7 +226,7 @@ void Dcel::merge(Dcel& dest, Dcel& a, Dcel& b) {
    // Q.print();
     while(!Q.isEmpty()) {
         Event event = Q.pop();
-        event.print();
+       // event.print();
         cur_y = event.getVertex()->getY();
         T.setY(cur_y);
         switch (event.getType()) {
@@ -281,24 +284,32 @@ void Dcel::merge(Dcel& dest, Dcel& a, Dcel& b) {
             case Event::Type::INTERSECION: {
                 
                 //splits.push_back({event.getVertex(), event.getEdges()});
-
                 event.getVertex()->setIncidentEdge(event.getEdges()[0]);
+                
                 for (HalfEdge* h: event.getEdges()) {
                     auto new_h = std::make_unique<HalfEdge>(*h);
                     new_h->setOrigin(h->getOrigin());
                     new_h->setNext(h);
                     new_h->setPrev(h->getPrev());
                     new_h->setIncidentFace(h->getIncidentFace());
-                    h->setOrigin(event.getVertex());
-                    h->setPrev(new_h.get());
+                    
+
                     auto new_twin = std::make_unique<HalfEdge>(*h);
+                    
                     new_h->setTwin(new_twin.get());
                     new_twin->setTwin(new_h.get());
-                    h->getTwin()->setNext(new_twin.get());
-                    new_twin->setPrev(h->getTwin());
-                    new_twin->setNext(new_h->getPrev()->getTwin());
-                    new_twin->setOrigin(event.getVertex());
                     new_twin->setIncidentFace(h->getTwin()->getIncidentFace());
+                    new_twin->setPrev(h->getTwin());
+                    new_twin->setNext(h->getPrev()->getTwin());
+                    new_twin->setOrigin(event.getVertex());
+
+                    h->getPrev()->setNext(new_h.get());
+                    h->getPrev()->getTwin()->setPrev(new_twin.get());
+                    h->getTwin()->setNext(new_twin.get());
+                    h->setOrigin(event.getVertex());
+                    h->setPrev(new_h.get());
+                    if(new_h->getOrigin()->getIncidentEdge() == h) new_h->getOrigin()->setIncidentEdge(new_h.get());
+                    event.getVertex()->setIncidentEdge(h);
                     T.erase(h);
                     dest.halfEdge.push_back(std::move(new_h));
                     dest.halfEdge.push_back(std::move(new_twin));
@@ -336,6 +347,65 @@ void Dcel::merge(Dcel& dest, Dcel& a, Dcel& b) {
                 break;
             }
         }
+    }
+}
+
+
+void Dcel::dfs() const {
+    if (vertex.empty()) {
+        std::cout << "DCEL is empty!" << std::endl;
+        return;
+    }
+    std::cout << "DFS\n";
+    std::stack<const HalfEdge*> s;
+    std::set<const HalfEdge*> u;
+    const Vertex* start = vertex[0].get();
+    u.insert(start->getIncidentEdge());
+    s.push(start->getIncidentEdge());
+    while (!s.empty()) {
+        const HalfEdge* h = s.top();
+        s.pop();
+        h->print();
+        if (u.find(h->getNext()) == u.end()) {
+            s.push(h->getNext());
+            u.insert(h->getNext());
+        }
+            
+    }
+
+}
+
+void Dcel::fix() {
+    std::map<Vertex*, std::vector<HalfEdge*>> s;
+    for (auto& edge : halfEdge) {
+        s[edge->getOrigin()].push_back(edge.get());
+    }
+
+}
+
+void Dcel::test(Dcel& a, Dcel& b) {
+    std::map<Vertex*, std::vector<HalfEdge*>> s;
+    for (auto& edge : halfEdge) {
+        s[edge->getOrigin()].push_back(edge.get());
+    }
+    vertex[5]->print();
+    for (auto &now: halfEdge) {
+        now->print();
+    }
+    return;
+    this->add(a);
+    this->add(b);
+    this->print();
+    for (const auto& v : vertex) {
+        std::cout << "\nV = ";
+        v->print();
+        std::cout << "Incident = ";
+        v->getIncidentEdge()->print();
+        std::cout << "Next = ";
+        v->getIncidentEdge()->getNext()->print();
+        std::cout << "Prev = ";
+        v->getIncidentEdge()->getPrev()->print();
+        std::cout << "________________________________\n";
     }
 }
 
