@@ -153,6 +153,54 @@ src/dcel.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/the_minkowski_sum.dir/build.make CMakeFiles/the_minkowski_sum.dir/src/dcel.cpp.s
 .PHONY : src/dcel.cpp.s
 
+src/eventI.o: src/eventI.cpp.o
+.PHONY : src/eventI.o
+
+# target to build an object file
+src/eventI.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/the_minkowski_sum.dir/build.make CMakeFiles/the_minkowski_sum.dir/src/eventI.cpp.o
+.PHONY : src/eventI.cpp.o
+
+src/eventI.i: src/eventI.cpp.i
+.PHONY : src/eventI.i
+
+# target to preprocess a source file
+src/eventI.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/the_minkowski_sum.dir/build.make CMakeFiles/the_minkowski_sum.dir/src/eventI.cpp.i
+.PHONY : src/eventI.cpp.i
+
+src/eventI.s: src/eventI.cpp.s
+.PHONY : src/eventI.s
+
+# target to generate assembly for a file
+src/eventI.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/the_minkowski_sum.dir/build.make CMakeFiles/the_minkowski_sum.dir/src/eventI.cpp.s
+.PHONY : src/eventI.cpp.s
+
+src/halfEdge.o: src/halfEdge.cpp.o
+.PHONY : src/halfEdge.o
+
+# target to build an object file
+src/halfEdge.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/the_minkowski_sum.dir/build.make CMakeFiles/the_minkowski_sum.dir/src/halfEdge.cpp.o
+.PHONY : src/halfEdge.cpp.o
+
+src/halfEdge.i: src/halfEdge.cpp.i
+.PHONY : src/halfEdge.i
+
+# target to preprocess a source file
+src/halfEdge.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/the_minkowski_sum.dir/build.make CMakeFiles/the_minkowski_sum.dir/src/halfEdge.cpp.i
+.PHONY : src/halfEdge.cpp.i
+
+src/halfEdge.s: src/halfEdge.cpp.s
+.PHONY : src/halfEdge.s
+
+# target to generate assembly for a file
+src/halfEdge.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/the_minkowski_sum.dir/build.make CMakeFiles/the_minkowski_sum.dir/src/halfEdge.cpp.s
+.PHONY : src/halfEdge.cpp.s
+
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
 
@@ -177,6 +225,54 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/the_minkowski_sum.dir/build.make CMakeFiles/the_minkowski_sum.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/sweepline.o: src/sweepline.cpp.o
+.PHONY : src/sweepline.o
+
+# target to build an object file
+src/sweepline.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/the_minkowski_sum.dir/build.make CMakeFiles/the_minkowski_sum.dir/src/sweepline.cpp.o
+.PHONY : src/sweepline.cpp.o
+
+src/sweepline.i: src/sweepline.cpp.i
+.PHONY : src/sweepline.i
+
+# target to preprocess a source file
+src/sweepline.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/the_minkowski_sum.dir/build.make CMakeFiles/the_minkowski_sum.dir/src/sweepline.cpp.i
+.PHONY : src/sweepline.cpp.i
+
+src/sweepline.s: src/sweepline.cpp.s
+.PHONY : src/sweepline.s
+
+# target to generate assembly for a file
+src/sweepline.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/the_minkowski_sum.dir/build.make CMakeFiles/the_minkowski_sum.dir/src/sweepline.cpp.s
+.PHONY : src/sweepline.cpp.s
+
+src/vertex.o: src/vertex.cpp.o
+.PHONY : src/vertex.o
+
+# target to build an object file
+src/vertex.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/the_minkowski_sum.dir/build.make CMakeFiles/the_minkowski_sum.dir/src/vertex.cpp.o
+.PHONY : src/vertex.cpp.o
+
+src/vertex.i: src/vertex.cpp.i
+.PHONY : src/vertex.i
+
+# target to preprocess a source file
+src/vertex.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/the_minkowski_sum.dir/build.make CMakeFiles/the_minkowski_sum.dir/src/vertex.cpp.i
+.PHONY : src/vertex.cpp.i
+
+src/vertex.s: src/vertex.cpp.s
+.PHONY : src/vertex.s
+
+# target to generate assembly for a file
+src/vertex.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/the_minkowski_sum.dir/build.make CMakeFiles/the_minkowski_sum.dir/src/vertex.cpp.s
+.PHONY : src/vertex.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -189,9 +285,21 @@ help:
 	@echo "... src/dcel.o"
 	@echo "... src/dcel.i"
 	@echo "... src/dcel.s"
+	@echo "... src/eventI.o"
+	@echo "... src/eventI.i"
+	@echo "... src/eventI.s"
+	@echo "... src/halfEdge.o"
+	@echo "... src/halfEdge.i"
+	@echo "... src/halfEdge.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/sweepline.o"
+	@echo "... src/sweepline.i"
+	@echo "... src/sweepline.s"
+	@echo "... src/vertex.o"
+	@echo "... src/vertex.i"
+	@echo "... src/vertex.s"
 .PHONY : help
 
 

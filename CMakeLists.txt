@@ -16,13 +16,23 @@ endif()
 # Список исходных файлов
 set(SOURCES
     src/main.cpp
-    src/dcel.cpp
     src/dcel.h
+    src/dcel.cpp
+    src/config.h
+    src/halfEdge.cpp
+    src/halfEdge.h 
+    src/vertex.cpp
+    src/vertex.h 
+    src/face.h
+    src/sweepline.cpp
+    src/sweepline.h
+    src/eventqueue.h
+    src/eventI.h 
+    src/eventI.cpp 
 )
 
 # Создание исполняемого файла
 add_executable(the_minkowski_sum ${SOURCES})
-
 # Подключение библиотек
 target_link_libraries(the_minkowski_sum
     OpenGL::OpenGL

@@ -81,12 +81,12 @@ clean: CMakeFiles/the_minkowski_sum.dir/clean
 CMakeFiles/the_minkowski_sum.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/the_minkowski_sum.dir/build.make CMakeFiles/the_minkowski_sum.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/the_minkowski_sum.dir/build.make CMakeFiles/the_minkowski_sum.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/kythhiwa/The_Minkowski_sum/build/CMakeFiles --progress-num=1,2,3 "Built target the_minkowski_sum"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/kythhiwa/The_Minkowski_sum/build/CMakeFiles --progress-num=1,2,3,4,5,6,7 "Built target the_minkowski_sum"
 .PHONY : CMakeFiles/the_minkowski_sum.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/the_minkowski_sum.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/kythhiwa/The_Minkowski_sum/build/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/kythhiwa/The_Minkowski_sum/build/CMakeFiles 7
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/the_minkowski_sum.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/kythhiwa/The_Minkowski_sum/build/CMakeFiles 0
 .PHONY : CMakeFiles/the_minkowski_sum.dir/rule
