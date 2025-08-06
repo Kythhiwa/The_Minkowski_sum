@@ -56,7 +56,11 @@ Dcel::Dcel(std::vector<std::pair<double, double>> points, int id) {
     
     for (auto& h: halfEdge) {
         if (h->isHorizontal()){
-            h->getOrigin()->setY(h->getOrigin()->getY() + Geometry::eps);
+            if (h->getOrigin()->getX() > h->getEndPoint()->getX()) {
+                h->getOrigin()->setY(h->getOrigin()->getY() + Geometry::eps);
+            } else {
+                h->getEndPoint()->setY(h->getEndPoint()->getY() + Geometry::eps);
+            }
         }
     }
     for (size_t i = 0; i < face.size(); ++i) {
