@@ -29,6 +29,10 @@ set(SOURCES
     src/eventqueue.h
     src/eventI.h 
     src/eventI.cpp 
+    src/render.h 
+    src/render.cpp
+    src/genran.h 
+    src/genran.cpp 
 )
 
 # Создание исполняемого файла

@@ -68,6 +68,22 @@ Dcel::Dcel(std::vector<std::pair<double, double>> points, int id) {
     }
 }
 
+const std::vector<Vertex*> Dcel::getVertex() const {
+    std::vector<Vertex*> a;
+    for (auto& v: vertex) {
+        a.push_back(v.get());
+    }
+    return a;
+}
+
+const std::vector<HalfEdge*> Dcel::getHalfEdge() const {
+    std::vector<HalfEdge*> a;
+    for (auto& h: halfEdge) {
+        a.push_back(h.get());
+    }
+    return a;
+}
+
 Dcel::~Dcel() = default;
 
 void Dcel::print() const {
@@ -230,7 +246,7 @@ void Dcel::merge(Dcel& dest, Dcel& a, Dcel& b) {
    // Q.print();
     while(!Q.isEmpty()) {
         Event event = Q.pop();
-       // event.print();
+        //event.print();
         cur_y = event.getVertex()->getY();
         T.setY(cur_y);
         switch (event.getType()) {
@@ -288,9 +304,16 @@ void Dcel::merge(Dcel& dest, Dcel& a, Dcel& b) {
             case Event::Type::INTERSECION: {
                 
                 //splits.push_back({event.getVertex(), event.getEdges()});
-                event.getVertex()->setIncidentEdge(event.getEdges()[0]);
+               // event.getVertex()->setIncidentEdge(event.getEdges()[0]);
                 
+                std::cout << "///////////////////////////////////////////\n";
                 for (HalfEdge* h: event.getEdges()) {
+                    T.erase(h);
+                }
+
+                T.setY(cur_y-Geometry::eps);
+                for (HalfEdge* h: event.getEdges()) {
+                    T.insert(h);
                     auto new_h = std::make_unique<HalfEdge>(*h);
                     new_h->setOrigin(h->getOrigin());
                     new_h->setNext(h);
@@ -298,14 +321,15 @@ void Dcel::merge(Dcel& dest, Dcel& a, Dcel& b) {
                     new_h->setIncidentFace(h->getIncidentFace());
                     
 
-                    auto new_twin = std::make_unique<HalfEdge>(*h);
+                    auto new_twin = std::make_unique<HalfEdge>(*h->getTwin());
                     
                     new_h->setTwin(new_twin.get());
+
+                    new_twin->setOrigin(event.getVertex());
                     new_twin->setTwin(new_h.get());
                     new_twin->setIncidentFace(h->getTwin()->getIncidentFace());
                     new_twin->setPrev(h->getTwin());
                     new_twin->setNext(h->getPrev()->getTwin());
-                    new_twin->setOrigin(event.getVertex());
 
                     h->getPrev()->setNext(new_h.get());
                     h->getPrev()->getTwin()->setPrev(new_twin.get());
@@ -313,14 +337,11 @@ void Dcel::merge(Dcel& dest, Dcel& a, Dcel& b) {
                     h->setOrigin(event.getVertex());
                     h->setPrev(new_h.get());
                     if(new_h->getOrigin()->getIncidentEdge() == h) new_h->getOrigin()->setIncidentEdge(new_h.get());
-                    event.getVertex()->setIncidentEdge(h);
-                    T.erase(h);
+                    if(event.getVertex()->getIncidentEdge() == nullptr) event.getVertex()->setIncidentEdge(h);
                     dest.halfEdge.push_back(std::move(new_h));
                     dest.halfEdge.push_back(std::move(new_twin));
-                }
-                T.setY(cur_y-Geometry::eps);
-                for (HalfEdge* h: event.getEdges()) {
-                    T.insert(h);
+
+
                 }
                 T.setY(cur_y);
                 for (HalfEdge* h: event.getEdges()) {

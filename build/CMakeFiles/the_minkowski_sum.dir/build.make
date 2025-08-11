@@ -153,6 +153,34 @@ CMakeFiles/the_minkowski_sum.dir/src/eventI.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/the_minkowski_sum.dir/src/eventI.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kythhiwa/The_Minkowski_sum/src/eventI.cpp -o CMakeFiles/the_minkowski_sum.dir/src/eventI.cpp.s
 
+CMakeFiles/the_minkowski_sum.dir/src/render.cpp.o: CMakeFiles/the_minkowski_sum.dir/flags.make
+CMakeFiles/the_minkowski_sum.dir/src/render.cpp.o: /home/kythhiwa/The_Minkowski_sum/src/render.cpp
+CMakeFiles/the_minkowski_sum.dir/src/render.cpp.o: CMakeFiles/the_minkowski_sum.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/kythhiwa/The_Minkowski_sum/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/the_minkowski_sum.dir/src/render.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/the_minkowski_sum.dir/src/render.cpp.o -MF CMakeFiles/the_minkowski_sum.dir/src/render.cpp.o.d -o CMakeFiles/the_minkowski_sum.dir/src/render.cpp.o -c /home/kythhiwa/The_Minkowski_sum/src/render.cpp
+
+CMakeFiles/the_minkowski_sum.dir/src/render.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/the_minkowski_sum.dir/src/render.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/kythhiwa/The_Minkowski_sum/src/render.cpp > CMakeFiles/the_minkowski_sum.dir/src/render.cpp.i
+
+CMakeFiles/the_minkowski_sum.dir/src/render.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/the_minkowski_sum.dir/src/render.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kythhiwa/The_Minkowski_sum/src/render.cpp -o CMakeFiles/the_minkowski_sum.dir/src/render.cpp.s
+
+CMakeFiles/the_minkowski_sum.dir/src/genran.cpp.o: CMakeFiles/the_minkowski_sum.dir/flags.make
+CMakeFiles/the_minkowski_sum.dir/src/genran.cpp.o: /home/kythhiwa/The_Minkowski_sum/src/genran.cpp
+CMakeFiles/the_minkowski_sum.dir/src/genran.cpp.o: CMakeFiles/the_minkowski_sum.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/kythhiwa/The_Minkowski_sum/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/the_minkowski_sum.dir/src/genran.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/the_minkowski_sum.dir/src/genran.cpp.o -MF CMakeFiles/the_minkowski_sum.dir/src/genran.cpp.o.d -o CMakeFiles/the_minkowski_sum.dir/src/genran.cpp.o -c /home/kythhiwa/The_Minkowski_sum/src/genran.cpp
+
+CMakeFiles/the_minkowski_sum.dir/src/genran.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/the_minkowski_sum.dir/src/genran.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/kythhiwa/The_Minkowski_sum/src/genran.cpp > CMakeFiles/the_minkowski_sum.dir/src/genran.cpp.i
+
+CMakeFiles/the_minkowski_sum.dir/src/genran.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/the_minkowski_sum.dir/src/genran.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kythhiwa/The_Minkowski_sum/src/genran.cpp -o CMakeFiles/the_minkowski_sum.dir/src/genran.cpp.s
+
 # Object files for target the_minkowski_sum
 the_minkowski_sum_OBJECTS = \
 "CMakeFiles/the_minkowski_sum.dir/src/main.cpp.o" \
@@ -160,7 +188,9 @@ the_minkowski_sum_OBJECTS = \
 "CMakeFiles/the_minkowski_sum.dir/src/halfEdge.cpp.o" \
 "CMakeFiles/the_minkowski_sum.dir/src/vertex.cpp.o" \
 "CMakeFiles/the_minkowski_sum.dir/src/sweepline.cpp.o" \
-"CMakeFiles/the_minkowski_sum.dir/src/eventI.cpp.o"
+"CMakeFiles/the_minkowski_sum.dir/src/eventI.cpp.o" \
+"CMakeFiles/the_minkowski_sum.dir/src/render.cpp.o" \
+"CMakeFiles/the_minkowski_sum.dir/src/genran.cpp.o"
 
 # External object files for target the_minkowski_sum
 the_minkowski_sum_EXTERNAL_OBJECTS =
@@ -171,6 +201,8 @@ the_minkowski_sum: CMakeFiles/the_minkowski_sum.dir/src/halfEdge.cpp.o
 the_minkowski_sum: CMakeFiles/the_minkowski_sum.dir/src/vertex.cpp.o
 the_minkowski_sum: CMakeFiles/the_minkowski_sum.dir/src/sweepline.cpp.o
 the_minkowski_sum: CMakeFiles/the_minkowski_sum.dir/src/eventI.cpp.o
+the_minkowski_sum: CMakeFiles/the_minkowski_sum.dir/src/render.cpp.o
+the_minkowski_sum: CMakeFiles/the_minkowski_sum.dir/src/genran.cpp.o
 the_minkowski_sum: CMakeFiles/the_minkowski_sum.dir/build.make
 the_minkowski_sum: /usr/lib/x86_64-linux-gnu/libOpenGL.so
 the_minkowski_sum: /usr/lib/x86_64-linux-gnu/libGLU.so
@@ -179,7 +211,7 @@ the_minkowski_sum: /usr/lib/x86_64-linux-gnu/libGLX.so
 the_minkowski_sum: /usr/lib/x86_64-linux-gnu/libOpenGL.so
 the_minkowski_sum: /usr/lib/x86_64-linux-gnu/libXi.so
 the_minkowski_sum: CMakeFiles/the_minkowski_sum.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/kythhiwa/The_Minkowski_sum/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable the_minkowski_sum"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/kythhiwa/The_Minkowski_sum/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX executable the_minkowski_sum"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/the_minkowski_sum.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

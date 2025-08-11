@@ -177,6 +177,30 @@ src/eventI.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/the_minkowski_sum.dir/build.make CMakeFiles/the_minkowski_sum.dir/src/eventI.cpp.s
 .PHONY : src/eventI.cpp.s
 
+src/genran.o: src/genran.cpp.o
+.PHONY : src/genran.o
+
+# target to build an object file
+src/genran.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/the_minkowski_sum.dir/build.make CMakeFiles/the_minkowski_sum.dir/src/genran.cpp.o
+.PHONY : src/genran.cpp.o
+
+src/genran.i: src/genran.cpp.i
+.PHONY : src/genran.i
+
+# target to preprocess a source file
+src/genran.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/the_minkowski_sum.dir/build.make CMakeFiles/the_minkowski_sum.dir/src/genran.cpp.i
+.PHONY : src/genran.cpp.i
+
+src/genran.s: src/genran.cpp.s
+.PHONY : src/genran.s
+
+# target to generate assembly for a file
+src/genran.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/the_minkowski_sum.dir/build.make CMakeFiles/the_minkowski_sum.dir/src/genran.cpp.s
+.PHONY : src/genran.cpp.s
+
 src/halfEdge.o: src/halfEdge.cpp.o
 .PHONY : src/halfEdge.o
 
@@ -224,6 +248,30 @@ src/main.s: src/main.cpp.s
 src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/the_minkowski_sum.dir/build.make CMakeFiles/the_minkowski_sum.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
+
+src/render.o: src/render.cpp.o
+.PHONY : src/render.o
+
+# target to build an object file
+src/render.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/the_minkowski_sum.dir/build.make CMakeFiles/the_minkowski_sum.dir/src/render.cpp.o
+.PHONY : src/render.cpp.o
+
+src/render.i: src/render.cpp.i
+.PHONY : src/render.i
+
+# target to preprocess a source file
+src/render.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/the_minkowski_sum.dir/build.make CMakeFiles/the_minkowski_sum.dir/src/render.cpp.i
+.PHONY : src/render.cpp.i
+
+src/render.s: src/render.cpp.s
+.PHONY : src/render.s
+
+# target to generate assembly for a file
+src/render.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/the_minkowski_sum.dir/build.make CMakeFiles/the_minkowski_sum.dir/src/render.cpp.s
+.PHONY : src/render.cpp.s
 
 src/sweepline.o: src/sweepline.cpp.o
 .PHONY : src/sweepline.o
@@ -288,12 +336,18 @@ help:
 	@echo "... src/eventI.o"
 	@echo "... src/eventI.i"
 	@echo "... src/eventI.s"
+	@echo "... src/genran.o"
+	@echo "... src/genran.i"
+	@echo "... src/genran.s"
 	@echo "... src/halfEdge.o"
 	@echo "... src/halfEdge.i"
 	@echo "... src/halfEdge.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/render.o"
+	@echo "... src/render.i"
+	@echo "... src/render.s"
 	@echo "... src/sweepline.o"
 	@echo "... src/sweepline.i"
 	@echo "... src/sweepline.s"
