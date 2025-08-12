@@ -13,10 +13,10 @@ bool Event::operator==(const Event &other) const {
     return std::abs(v->getX()-other.v->getX()) < Geometry::eps && std::abs(v->getY()-other.v->getY()) < Geometry::eps;
 }
 bool Event::operator<(const Event &other) const {
-    if (std::abs(v->getY() - other.v->getY()) > Geometry::eps) {
+    if (std::abs(v->getY() - other.v->getY()) >= Geometry::eps) {
         return v->getY() > other.v->getY();
     }
-    if (std::abs(v->getX() - other.v->getX()) > Geometry::eps) {
+    if (std::abs(v->getX() - other.v->getX()) >= Geometry::eps) {
         return v->getX() < other.v->getX();
     }
     return type < other.type;    

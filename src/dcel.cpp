@@ -126,6 +126,19 @@ void Dcel::print() const {
 
         std::cout << "[loop]\n";
     }
+    std::cout << "\nDFS: \n";
+    std::unordered_set<HalfEdge*> vis;
+    for (const auto& h : halfEdge) {
+        if (vis.find(h.get()) != vis.end()) continue;
+        HalfEdge* start = h.get();
+        HalfEdge* cur = start;
+        do {
+            std::cout << "V" << vertex_ids[cur->getOrigin()] << " -> ";
+            vis.insert(cur);
+            cur = cur->getNext();
+        } while (cur != start);
+        std::cout << "[loop]\n";
+    }
 }
 
 
@@ -136,16 +149,29 @@ struct VertexComparator {
     
     bool operator()(const std::pair<double, double>& a, 
                    const std::pair<double, double>& b) const {
-        if (std::abs(a.first - b.first) > eps) {
+        if (std::abs(a.first - b.first) >= eps) {
             return a.first < b.first;
         }
-        if (std::abs(a.second - b.second) > eps) {
+        if (std::abs(a.second - b.second) >= eps) {
             return a.second < b.second;
         }
         return false; // Вершины считаются равными
     }
 };
 
+double calculateAngle(const HalfEdge* edge) {
+    double dx = edge->getEndPoint()->getX() - edge->getOrigin()->getX();
+    double dy = edge->getEndPoint()->getY() - edge->getOrigin()->getY();
+    return std::atan2(dy, dx);
+}
+
+bool compareEdgesByAngle(const HalfEdge* a, const HalfEdge* b) {
+    return calculateAngle(a) < calculateAngle(b);
+}
+
+void sortByAngle(std::vector<HalfEdge*>& e) {
+    std::sort(e.begin(), e.end(), compareEdgesByAngle);
+}
 
 void Dcel::add(const Dcel& other) {
     std::map<const Vertex*, Vertex*> vertexMap;
@@ -220,30 +246,34 @@ void Dcel::merge(Dcel& dest, Dcel& a, Dcel& b) {
     EventQueue<Event> Q;
    
     std::map<std::pair<double, double>, Vertex*, VertexComparator> coordToVertex{VertexComparator{Geometry::eps}};  
-    std::vector<std::pair<Vertex*, std::vector<HalfEdge*>>> splits;
-    for (const auto& v : dest.vertex) { // переписать
+    std::map<Vertex*, std::vector<HalfEdge*>> starts;
+    std::map<Vertex*, std::vector<HalfEdge*>> ends;
+    
+    for (const auto& v : dest.vertex) {
         coordToVertex[{v->getX(), v->getY()}] = v.get();
-        std::vector<HalfEdge*> starts;
-        std::vector<HalfEdge*> ends;
-        std::cout << v->getX() << " " << v->getY() << "\n";
-        for (const auto& h : dest.halfEdge) {
-            if (h->getOrigin() == v.get()) {
-                h->print();
-                if (h->getEndPoint()->getY() < v->getY() ) {
-                    starts.push_back(h.get());
-                } else {
-                    ends.push_back(h.get());
-                }
-            }
-        }
-        Event s = Event::eventStart(v.get());
-        s.setEdges(starts);
-        Event e = Event::eventEnd(v.get());
-        e.setEdges(ends);
-        if (!starts.empty())Q.push(s);
-        if (!ends.empty())Q.push(e);
     }
-   // Q.print();
+
+    for (const auto& h : dest.halfEdge) {
+         if (h->getEndPoint()->getY() < h->getOrigin()->getY() ) {
+            starts[h->getOrigin()].push_back(h.get());
+        } else {
+            ends[h->getOrigin()].push_back(h.get());
+        }
+    }
+    
+    for (const auto [v, vh]: starts) {
+        Event s = Event::eventStart(v);
+        s.setEdges(vh);
+        if (!vh.empty()) Q.push(s);
+    }
+
+    for (const auto [v, vh]: ends) {
+        Event e = Event::eventEnd(v);
+        e.setEdges(vh);
+        if (!vh.empty()) Q.push(e);
+    }
+    Q.print();
+    std::map<Vertex*, std::vector<HalfEdge*>> sp;
     while(!Q.isEmpty()) {
         Event event = Q.pop();
         //event.print();
@@ -303,14 +333,12 @@ void Dcel::merge(Dcel& dest, Dcel& a, Dcel& b) {
             }
             case Event::Type::INTERSECION: {
                 
-                //splits.push_back({event.getVertex(), event.getEdges()});
-               // event.getVertex()->setIncidentEdge(event.getEdges()[0]);
                 
-                std::cout << "///////////////////////////////////////////\n";
                 for (HalfEdge* h: event.getEdges()) {
                     T.erase(h);
+                    h->print();
                 }
-
+                std::vector<HalfEdge*> splits;
                 T.setY(cur_y-Geometry::eps);
                 for (HalfEdge* h: event.getEdges()) {
                     T.insert(h);
@@ -329,20 +357,30 @@ void Dcel::merge(Dcel& dest, Dcel& a, Dcel& b) {
                     new_twin->setTwin(new_h.get());
                     new_twin->setIncidentFace(h->getTwin()->getIncidentFace());
                     new_twin->setPrev(h->getTwin());
-                    new_twin->setNext(h->getPrev()->getTwin());
+                    new_twin->setNext(h->getTwin()->getNext());
 
                     h->getPrev()->setNext(new_h.get());
-                    h->getPrev()->getTwin()->setPrev(new_twin.get());
+                    h->getTwin()->getNext()->setPrev(new_twin.get());
                     h->getTwin()->setNext(new_twin.get());
                     h->setOrigin(event.getVertex());
                     h->setPrev(new_h.get());
                     if(new_h->getOrigin()->getIncidentEdge() == h) new_h->getOrigin()->setIncidentEdge(new_h.get());
                     if(event.getVertex()->getIncidentEdge() == nullptr) event.getVertex()->setIncidentEdge(h);
+                    splits.push_back(new_h.get());
                     dest.halfEdge.push_back(std::move(new_h));
                     dest.halfEdge.push_back(std::move(new_twin));
-
-
+                    splits.push_back(h->getTwin());
                 }
+
+                std::cout << "s________________________________\n";
+                sortByAngle(splits);
+                for (size_t i = 0; i < splits.size(); i++) {
+                    splits[i]->setNext(splits[(i + 1) % splits.size()]->getTwin());
+                    splits[i]->getTwin()->setPrev(splits[(i - 1 + splits.size()) % splits.size()]);
+
+                    
+                }
+                std::cout << "e________________________________\n";
                 T.setY(cur_y);
                 for (HalfEdge* h: event.getEdges()) {
                     HalfEdge* left = T.less(event.getVertex()->getX()-Geometry::eps);
@@ -373,6 +411,7 @@ void Dcel::merge(Dcel& dest, Dcel& a, Dcel& b) {
             }
         }
     }
+
 }
 
 

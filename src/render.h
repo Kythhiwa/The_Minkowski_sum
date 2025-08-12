@@ -1,6 +1,8 @@
 #ifndef RENDER_H
 #define RENDER_H
 
+#include <random>
+
 class Dcel;
 
 class Render {
