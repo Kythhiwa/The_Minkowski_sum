@@ -84,6 +84,96 @@ const std::vector<HalfEdge*> Dcel::getHalfEdge() const {
     return a;
 }
 
+const std::vector<Face*> Dcel::getFace() const {
+    std::vector<Face*> a;
+    for (auto& f : face) {
+        a.push_back(f.get());
+    }
+    return a;
+}
+
+
+void Dcel::setHoles(std::vector<std::pair<double, double>> points) {
+    
+    if (points.size() < 3) {
+        throw std::invalid_argument("[ERROR]Point count < 3\n");
+    }
+    std::vector<std::unique_ptr<Vertex>> vert;
+    std::vector<std::unique_ptr<HalfEdge>> half;
+    std::vector<std::unique_ptr<Face>> fac;
+    for (const auto& [x, y] : points) {
+        vert.push_back(std::make_unique<Vertex>(x, y));
+    }
+    fac.push_back(std::make_unique<Face>(Face::Type::INNER));
+    fac.push_back(std::make_unique<Face>(Face::Type::HOLES));
+    
+    for (size_t i = 0; i < vert.size(); ++i) {
+        vert[i]->setId(id_);
+        size_t next_i = (i + 1) % vert.size();
+
+        auto out = std::make_unique<HalfEdge>();
+        auto in = std::make_unique<HalfEdge>();
+        out->setId(id_);
+        in->setId(id_);
+
+        out->setOrigin(vert[i].get());
+        in->setOrigin(vert[next_i].get());
+    
+        out->setTwin(in.get());
+        in->setTwin(out.get());
+
+        out->setIncidentFace(fac[1].get());
+        in->setIncidentFace(fac[0].get());
+
+        vert[i]->setIncidentEdge(out.get());
+        half.push_back(std::move(out));
+        half.push_back(std::move(in));
+    }
+       
+    for (size_t i = 0; i < half.size(); i += 2) {
+        size_t next_i_in = (i + 2) % half.size();
+        half[i]->setNext(half[next_i_in].get());
+        half[next_i_in]->setPrev(half[i].get());
+
+        size_t next_i_ou = (i + 3) % half.size();
+        half[i + 1]->setPrev(half[next_i_ou].get());
+        half[next_i_ou]->setNext(half[i + 1].get());
+    }
+    fac[0]->setOuterComponent(half[1].get());
+    fac[1]->setOuterComponent(half[0].get());
+    
+    for (auto& h: half) {
+        if (h->isHorizontal()){
+            if (h->getOrigin()->getX() > h->getEndPoint()->getX()) {
+                h->getOrigin()->setY(h->getOrigin()->getY() + Geometry::eps);
+            } else {
+                h->getEndPoint()->setY(h->getEndPoint()->getY() + Geometry::eps);
+            }
+        }
+    }
+    for (size_t i = 0; i < fac.size(); ++i) {
+        fac[i]->setId(id_);
+    }
+    for (auto& f : face) {
+        if (f->getType() == Face::Type::INNER) {
+            f->setHole(half[0].get());
+            break;
+        }
+    }
+    fac[0]->setOuterComponent(halfEdge[1].get());
+    for (auto& v : vert){
+        vertex.push_back(std::move(v));
+    }
+    for (auto& h : half){
+        halfEdge.push_back(std::move(h));
+    }
+    
+    for (auto& f : fac){
+        face.push_back(std::move(f));
+    }
+}
+
+
 Dcel::~Dcel() = default;
 
 void Dcel::print() const {
@@ -139,6 +229,8 @@ void Dcel::print() const {
         } while (cur != start);
         std::cout << "[loop]\n";
     }
+   
+   
 }
 
 
@@ -155,7 +247,7 @@ struct VertexComparator {
         if (std::abs(a.second - b.second) >= eps) {
             return a.second < b.second;
         }
-        return false; // Вершины считаются равными
+        return false;
     }
 };
 
@@ -238,10 +330,29 @@ void Dcel::add(const Dcel& other) {
 }
 
 void Dcel::merge(Dcel& dest, Dcel& a, Dcel& b) {
-    dest.add(a);
-    dest.add(b);
+    //dest.add(a);
+    //dest.add(b);
+    for (auto& v : a.vertex){
+        dest.vertex.push_back(std::move(v));
+    }
+    for (auto& h : a.halfEdge){
+        dest.halfEdge.push_back(std::move(h));
+    }
     
-    double cur_y = 100;
+    for (auto& f : a.face){
+        dest.face.push_back(std::move(f));
+    }
+    for (auto& v : b.vertex){
+        dest.vertex.push_back(std::move(v));
+    }
+    for (auto& h : b.halfEdge){
+        dest.halfEdge.push_back(std::move(h));
+    }
+    
+    for (auto& f : b.face){
+        dest.face.push_back(std::move(f));
+    }
+    double cur_y = 1000;
     Sweepline T(cur_y);
     EventQueue<Event> Q;
    
@@ -261,6 +372,7 @@ void Dcel::merge(Dcel& dest, Dcel& a, Dcel& b) {
         }
     }
     
+
     for (const auto [v, vh]: starts) {
         Event s = Event::eventStart(v);
         s.setEdges(vh);

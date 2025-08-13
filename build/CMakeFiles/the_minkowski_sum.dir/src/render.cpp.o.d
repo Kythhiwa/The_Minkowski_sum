@@ -217,4 +217,5 @@ CMakeFiles/the_minkowski_sum.dir/src/render.cpp.o: \
  /usr/include/GL/freeglut_std.h /usr/include/GL/glu.h \
  /usr/include/c++/13/stdlib.h \
  /home/kythhiwa/The_Minkowski_sum/src/vertex.h \
- /home/kythhiwa/The_Minkowski_sum/src/halfEdge.h
+ /home/kythhiwa/The_Minkowski_sum/src/halfEdge.h \
+ /home/kythhiwa/The_Minkowski_sum/src/face.h

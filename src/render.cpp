@@ -4,6 +4,7 @@
 #include "GL/glut.h"
 #include "vertex.h"
 #include "halfEdge.h"
+#include "face.h"
 
 void Render::render(const Dcel &dcel) {
     renderEdge(dcel, 0.65, 0.7, 0.8, 2);
@@ -41,6 +42,7 @@ void Render::renderEdge(const Dcel& dcel, double r, double g, double b, double s
     glLineWidth(size);
     glBegin(GL_LINES);
     for (const auto &h: dcel.getHalfEdge()) {
+        if (h->getIncidentFace()->getId() != h->getTwin()->getIncidentFace()->getId()) continue;// !!!!!!!!!!
         glVertex2d(h->getOrigin()->getX(), h->getOrigin()->getY());
         glVertex2d(h->getEndPoint()->getX(), h->getEndPoint()->getY());
     }

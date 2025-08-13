@@ -27,10 +27,13 @@ public:
     Dcel(std::vector<std::pair<double, double>> points, int id = 0);
     ~Dcel();
 
-    
+        
     const std::vector<Vertex*> getVertex() const;
     const std::vector<HalfEdge*> getHalfEdge() const;
-    
+    const std::vector<Face*> getFace() const;
+
+    void setHoles(std::vector<std::pair<double, double>> points);
+
     static void merge(Dcel& dest, Dcel& a, Dcel& b);
     void print() const;
     void fix();

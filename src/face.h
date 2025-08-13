@@ -23,7 +23,7 @@ public:
 
     HalfEdge* getOuterComponent() { return outerComponent_; }
     Type getType() { return type_; }
-
+    const std::vector<HalfEdge*> getHoles(){return holes_; }
     const HalfEdge* getOuterComponent() const { return outerComponent_; }
     const Type getType() const { return type_; }
     int getId() const {return id_; }
@@ -31,6 +31,7 @@ public:
     void setType(Type type) {type_ = type; }
     void setOuterComponent(HalfEdge *outerComponent) { outerComponent_ = outerComponent; }
     void setId(int x) {id_ = x; }
+    void setHole(HalfEdge* h) {holes_.push_back(h); };
 };
 
 

@@ -1243,6 +1243,7 @@ CMakeFiles/the_minkowski_sum.dir/src/main.cpp.o: /home/kythhiwa/The_Minkowski_su
 
 CMakeFiles/the_minkowski_sum.dir/src/render.cpp.o: /home/kythhiwa/The_Minkowski_sum/src/render.cpp \
   /home/kythhiwa/The_Minkowski_sum/src/dcel.h \
+  /home/kythhiwa/The_Minkowski_sum/src/face.h \
   /home/kythhiwa/The_Minkowski_sum/src/halfEdge.h \
   /home/kythhiwa/The_Minkowski_sum/src/render.h \
   /home/kythhiwa/The_Minkowski_sum/src/vertex.h \
