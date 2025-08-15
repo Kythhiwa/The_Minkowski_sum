@@ -19,7 +19,7 @@ bool Event::operator<(const Event &other) const {
     if (std::abs(v->getX() - other.v->getX()) >= Geometry::eps) {
         return v->getX() < other.v->getX();
     }
-    return type < other.type;    
+    return type > other.type;    
 }
 
 void Event::print() const {

@@ -1,5 +1,9 @@
 #include "genran.h"
 
+double roundTo5Digits(double value) {
+    const double multiplier = 1e5;
+    return std::round(value * multiplier) / multiplier;
+}
 
 std::vector<std::pair<double, double>> Random::getRandPolygon(int n) {
     std::vector<std::pair<double, double>> polygon;
@@ -14,15 +18,13 @@ std::vector<std::pair<double, double>> Random::getRandPolygon(int n) {
     
     for(int i = 0; i < n; ++i) {
         double radius = radius_dist(gen);
-        double angle = 2 * M_PI * i / n;  // Равномерное распределение углов
+        double angle = 2 * M_PI * i / n;  
         
-        // Добавляем случайное отклонение
         angle += dist(gen) * 0.1;
         
         double x = center_x + radius * cos(angle);
         double y = center_y + radius * sin(angle);
-        
-        polygon.emplace_back(x, y);
+        polygon.emplace_back(roundTo5Digits(x), roundTo5Digits(y));
     }
     
     auto center = std::accumulate(polygon.begin(), polygon.end(), 

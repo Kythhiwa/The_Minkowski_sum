@@ -15,50 +15,52 @@ Dcel c;
 
 
 void init(int a) {
+    
     std::vector<std::pair<double,double>> p11 ={
-        {-2, 2}, {-2, -2}, {2, -2}, {2, 2}
+        {3, 2.5},
+        {3, 0.5},
+        {5, 0.5},
+        {5, 2.5}
     };
     std::vector<std::pair<double,double>> p21 ={
         {-1, 1}, {-1, -1}, {1, -1}, {1, 1}
     };
-   // Треугольник 1 (CCW)
-std::vector<std::pair<double,double>> p1 = {
-    {-2, 0},  // ← левая вершина
-    {2, 0},   // → правая вершина
-    {0, 3}    // ↑ верхняя вершина
-};
-
-// Треугольник 2 (CCW) - пересекает первый
-std::vector<std::pair<double,double>> p2 = {
-    {0, -1},  // ↓ нижняя вершина
-    {2, 2},  // ↖ верх-лево
-    {-2, 2}    // ↗ верх-право
-};
-// Пересечения: (0,1.5) и (0,0)
-    Dcel g(p11, 4);
-    Dcel g1(p21, 1231);
-    
-    g.setHoles(p21);
-    std::vector<std::pair<double, double>> p3 = {
-        {-0.5, 0.3},  {-0.5, 0.1},  {0.8, 0.1},  {0.8, 0.3}
+   
+    std::vector<std::pair<double,double>> p1 = {
+        {2, 3},
+        {2, 0},
+        {6, 0},
     };
-    
-    //p1 =  Random::getRandPolygon(6);
-    Dcel f(p3, 5);
-    //c.add(g);
-    //Dcel::merge(c, g, f);
-    
-    //c.print();
 
-    
-    p1 =  Random::getRandPolygon(4);
-    p2 =  Random::getRandPolygon(5);
-    Dcel d1(p1, 1);
-    Dcel d2(p2, 2);
-    Dcel d3(Random::getRandPolygon(7), 3);
-    //d1.setHoles(p3);
+    std::vector<std::pair<double,double>> p2 = {
+        {2, 0},
+        {3, -5},
+        {6, 0}
+
+    };
+    //p1 =  Random::getRandPolygon(7);
+    //p2 =  Random::getRandPolygon(8);
+    for (auto [x, y] : p1) {
+        std::cout << "{"<< x << ", " << y << "}, \n";
+    }
+std::cout << "\n";
+    for (auto [x, y] : p2) {
+        std::cout << "{"<< x << ", " << y << "}, \n";
+    }
+std::cout << "\n";
+
+
+
+    Dcel d1(p1);
+    Dcel d2(p2);
+    //d1.seHoles(p3);
+    //
+    auto r = d1.getInnerPoint(d1.getHalfEdge()[1]);
+    std::cout << r.first << ":"<< r.second << "\n"; 
+    //return ;
+   // c.add(d1);
     Dcel::merge(c, d1, d2);
-    //Dcel::merge(c, d3, d3);
+    //Dcel::merge(c, q, d3);
     c.print();
 
 }

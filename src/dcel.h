@@ -17,13 +17,14 @@ class HalfEdge;
 class Face;
 
 class Dcel {
+    static int id;
     std::vector<std::unique_ptr<Vertex>> vertex;
     std::vector<std::unique_ptr<HalfEdge>> halfEdge;
     std::vector<std::unique_ptr<Face>> face;
     int id_;
 public:
     Dcel();
-    Dcel(std::vector<std::pair<double, double>> points, int id = 0);
+    Dcel(std::vector<std::pair<double, double>> points);
     ~Dcel();
 
         
