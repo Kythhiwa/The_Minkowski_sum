@@ -212,10 +212,19 @@ CMakeFiles/the_minkowski_sum.dir/src/render.cpp.o: \
  /usr/include/c++/13/bits/stl_multimap.h /usr/include/c++/13/stack \
  /usr/include/c++/13/deque /usr/include/c++/13/bits/stl_deque.h \
  /usr/include/c++/13/bits/deque.tcc /usr/include/c++/13/bits/stl_stack.h \
- /usr/include/GL/gl.h /usr/include/GL/glext.h \
- /usr/include/KHR/khrplatform.h /usr/include/GL/glut.h \
- /usr/include/GL/freeglut_std.h /usr/include/GL/glu.h \
- /usr/include/c++/13/stdlib.h \
+ /usr/include/c++/13/iomanip /usr/include/c++/13/locale \
+ /usr/include/c++/13/bits/locale_facets_nonio.h /usr/include/c++/13/ctime \
+ /usr/include/x86_64-linux-gnu/c++/13/bits/time_members.h \
+ /usr/include/x86_64-linux-gnu/c++/13/bits/messages_members.h \
+ /usr/include/libintl.h /usr/include/c++/13/bits/codecvt.h \
+ /usr/include/c++/13/bits/locale_facets_nonio.tcc \
+ /usr/include/c++/13/bits/locale_conv.h \
+ /usr/include/c++/13/bits/quoted_string.h /usr/include/c++/13/sstream \
+ /usr/include/c++/13/bits/sstream.tcc /usr/include/c++/13/cfloat \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/float.h /usr/include/GL/gl.h \
+ /usr/include/GL/glext.h /usr/include/KHR/khrplatform.h \
+ /usr/include/GL/glut.h /usr/include/GL/freeglut_std.h \
+ /usr/include/GL/glu.h /usr/include/c++/13/stdlib.h \
  /home/kythhiwa/The_Minkowski_sum/src/vertex.h \
  /home/kythhiwa/The_Minkowski_sum/src/halfEdge.h \
  /home/kythhiwa/The_Minkowski_sum/src/face.h

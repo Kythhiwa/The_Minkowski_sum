@@ -30,6 +30,7 @@ CMakeFiles/the_minkowski_sum.dir/src/dcel.cpp.o: /home/kythhiwa/The_Minkowski_su
   /usr/include/c++/13/bits/basic_string.tcc \
   /usr/include/c++/13/bits/char_traits.h \
   /usr/include/c++/13/bits/charconv.h \
+  /usr/include/c++/13/bits/codecvt.h \
   /usr/include/c++/13/bits/concept_check.h \
   /usr/include/c++/13/bits/cpp_type_traits.h \
   /usr/include/c++/13/bits/cxxabi_forced.h \
@@ -50,8 +51,11 @@ CMakeFiles/the_minkowski_sum.dir/src/dcel.cpp.o: /home/kythhiwa/The_Minkowski_su
   /usr/include/c++/13/bits/istream.tcc \
   /usr/include/c++/13/bits/locale_classes.h \
   /usr/include/c++/13/bits/locale_classes.tcc \
+  /usr/include/c++/13/bits/locale_conv.h \
   /usr/include/c++/13/bits/locale_facets.h \
   /usr/include/c++/13/bits/locale_facets.tcc \
+  /usr/include/c++/13/bits/locale_facets_nonio.h \
+  /usr/include/c++/13/bits/locale_facets_nonio.tcc \
   /usr/include/c++/13/bits/localefwd.h \
   /usr/include/c++/13/bits/memory_resource.h \
   /usr/include/c++/13/bits/memoryfwd.h \
@@ -64,6 +68,7 @@ CMakeFiles/the_minkowski_sum.dir/src/dcel.cpp.o: /home/kythhiwa/The_Minkowski_su
   /usr/include/c++/13/bits/postypes.h \
   /usr/include/c++/13/bits/predefined_ops.h \
   /usr/include/c++/13/bits/ptr_traits.h \
+  /usr/include/c++/13/bits/quoted_string.h \
   /usr/include/c++/13/bits/range_access.h \
   /usr/include/c++/13/bits/refwrap.h \
   /usr/include/c++/13/bits/requires_hosted.h \
@@ -71,6 +76,7 @@ CMakeFiles/the_minkowski_sum.dir/src/dcel.cpp.o: /home/kythhiwa/The_Minkowski_su
   /usr/include/c++/13/bits/shared_ptr_atomic.h \
   /usr/include/c++/13/bits/shared_ptr_base.h \
   /usr/include/c++/13/bits/specfun.h \
+  /usr/include/c++/13/bits/sstream.tcc \
   /usr/include/c++/13/bits/std_abs.h \
   /usr/include/c++/13/bits/stl_algo.h \
   /usr/include/c++/13/bits/stl_algobase.h \
@@ -107,11 +113,13 @@ CMakeFiles/the_minkowski_sum.dir/src/dcel.cpp.o: /home/kythhiwa/The_Minkowski_su
   /usr/include/c++/13/bits/vector.tcc \
   /usr/include/c++/13/cctype \
   /usr/include/c++/13/cerrno \
+  /usr/include/c++/13/cfloat \
   /usr/include/c++/13/clocale \
   /usr/include/c++/13/cmath \
   /usr/include/c++/13/cstddef \
   /usr/include/c++/13/cstdio \
   /usr/include/c++/13/cstdlib \
+  /usr/include/c++/13/ctime \
   /usr/include/c++/13/cwchar \
   /usr/include/c++/13/cwctype \
   /usr/include/c++/13/debug/assertions.h \
@@ -126,11 +134,13 @@ CMakeFiles/the_minkowski_sum.dir/src/dcel.cpp.o: /home/kythhiwa/The_Minkowski_su
   /usr/include/c++/13/ext/string_conversions.h \
   /usr/include/c++/13/ext/type_traits.h \
   /usr/include/c++/13/initializer_list \
+  /usr/include/c++/13/iomanip \
   /usr/include/c++/13/ios \
   /usr/include/c++/13/iosfwd \
   /usr/include/c++/13/iostream \
   /usr/include/c++/13/istream \
   /usr/include/c++/13/limits \
+  /usr/include/c++/13/locale \
   /usr/include/c++/13/map \
   /usr/include/c++/13/memory \
   /usr/include/c++/13/new \
@@ -140,6 +150,7 @@ CMakeFiles/the_minkowski_sum.dir/src/dcel.cpp.o: /home/kythhiwa/The_Minkowski_su
   /usr/include/c++/13/pstl/glue_memory_defs.h \
   /usr/include/c++/13/pstl/pstl_config.h \
   /usr/include/c++/13/set \
+  /usr/include/c++/13/sstream \
   /usr/include/c++/13/stack \
   /usr/include/c++/13/stdexcept \
   /usr/include/c++/13/streambuf \
@@ -169,6 +180,7 @@ CMakeFiles/the_minkowski_sum.dir/src/dcel.cpp.o: /home/kythhiwa/The_Minkowski_su
   /usr/include/errno.h \
   /usr/include/features-time64.h \
   /usr/include/features.h \
+  /usr/include/libintl.h \
   /usr/include/linux/errno.h \
   /usr/include/locale.h \
   /usr/include/math.h \
@@ -262,13 +274,16 @@ CMakeFiles/the_minkowski_sum.dir/src/dcel.cpp.o: /home/kythhiwa/The_Minkowski_su
   /usr/include/x86_64-linux-gnu/c++/13/bits/error_constants.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/gthr-default.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/gthr.h \
+  /usr/include/x86_64-linux-gnu/c++/13/bits/messages_members.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h \
+  /usr/include/x86_64-linux-gnu/c++/13/bits/time_members.h \
   /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
   /usr/include/x86_64-linux-gnu/gnu/stubs.h \
   /usr/include/x86_64-linux-gnu/sys/cdefs.h \
   /usr/include/x86_64-linux-gnu/sys/select.h \
   /usr/include/x86_64-linux-gnu/sys/single_threaded.h \
   /usr/include/x86_64-linux-gnu/sys/types.h \
+  /usr/lib/gcc/x86_64-linux-gnu/13/include/float.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h
@@ -958,6 +973,7 @@ CMakeFiles/the_minkowski_sum.dir/src/main.cpp.o: /home/kythhiwa/The_Minkowski_su
   /home/kythhiwa/The_Minkowski_sum/src/dcel.h \
   /home/kythhiwa/The_Minkowski_sum/src/eventI.h \
   /home/kythhiwa/The_Minkowski_sum/src/eventqueue.h \
+  /home/kythhiwa/The_Minkowski_sum/src/face.h \
   /home/kythhiwa/The_Minkowski_sum/src/genran.h \
   /home/kythhiwa/The_Minkowski_sum/src/halfEdge.h \
   /home/kythhiwa/The_Minkowski_sum/src/render.h \
@@ -989,6 +1005,7 @@ CMakeFiles/the_minkowski_sum.dir/src/main.cpp.o: /home/kythhiwa/The_Minkowski_su
   /usr/include/c++/13/bits/basic_string.tcc \
   /usr/include/c++/13/bits/char_traits.h \
   /usr/include/c++/13/bits/charconv.h \
+  /usr/include/c++/13/bits/codecvt.h \
   /usr/include/c++/13/bits/concept_check.h \
   /usr/include/c++/13/bits/cpp_type_traits.h \
   /usr/include/c++/13/bits/cxxabi_forced.h \
@@ -1009,8 +1026,11 @@ CMakeFiles/the_minkowski_sum.dir/src/main.cpp.o: /home/kythhiwa/The_Minkowski_su
   /usr/include/c++/13/bits/istream.tcc \
   /usr/include/c++/13/bits/locale_classes.h \
   /usr/include/c++/13/bits/locale_classes.tcc \
+  /usr/include/c++/13/bits/locale_conv.h \
   /usr/include/c++/13/bits/locale_facets.h \
   /usr/include/c++/13/bits/locale_facets.tcc \
+  /usr/include/c++/13/bits/locale_facets_nonio.h \
+  /usr/include/c++/13/bits/locale_facets_nonio.tcc \
   /usr/include/c++/13/bits/localefwd.h \
   /usr/include/c++/13/bits/memory_resource.h \
   /usr/include/c++/13/bits/memoryfwd.h \
@@ -1023,6 +1043,7 @@ CMakeFiles/the_minkowski_sum.dir/src/main.cpp.o: /home/kythhiwa/The_Minkowski_su
   /usr/include/c++/13/bits/postypes.h \
   /usr/include/c++/13/bits/predefined_ops.h \
   /usr/include/c++/13/bits/ptr_traits.h \
+  /usr/include/c++/13/bits/quoted_string.h \
   /usr/include/c++/13/bits/random.h \
   /usr/include/c++/13/bits/random.tcc \
   /usr/include/c++/13/bits/range_access.h \
@@ -1032,6 +1053,7 @@ CMakeFiles/the_minkowski_sum.dir/src/main.cpp.o: /home/kythhiwa/The_Minkowski_su
   /usr/include/c++/13/bits/shared_ptr_atomic.h \
   /usr/include/c++/13/bits/shared_ptr_base.h \
   /usr/include/c++/13/bits/specfun.h \
+  /usr/include/c++/13/bits/sstream.tcc \
   /usr/include/c++/13/bits/std_abs.h \
   /usr/include/c++/13/bits/stl_algo.h \
   /usr/include/c++/13/bits/stl_algobase.h \
@@ -1069,12 +1091,14 @@ CMakeFiles/the_minkowski_sum.dir/src/main.cpp.o: /home/kythhiwa/The_Minkowski_su
   /usr/include/c++/13/bits/vector.tcc \
   /usr/include/c++/13/cctype \
   /usr/include/c++/13/cerrno \
+  /usr/include/c++/13/cfloat \
   /usr/include/c++/13/clocale \
   /usr/include/c++/13/cmath \
   /usr/include/c++/13/cstddef \
   /usr/include/c++/13/cstdint \
   /usr/include/c++/13/cstdio \
   /usr/include/c++/13/cstdlib \
+  /usr/include/c++/13/ctime \
   /usr/include/c++/13/cwchar \
   /usr/include/c++/13/cwctype \
   /usr/include/c++/13/debug/assertions.h \
@@ -1089,11 +1113,13 @@ CMakeFiles/the_minkowski_sum.dir/src/main.cpp.o: /home/kythhiwa/The_Minkowski_su
   /usr/include/c++/13/ext/string_conversions.h \
   /usr/include/c++/13/ext/type_traits.h \
   /usr/include/c++/13/initializer_list \
+  /usr/include/c++/13/iomanip \
   /usr/include/c++/13/ios \
   /usr/include/c++/13/iosfwd \
   /usr/include/c++/13/iostream \
   /usr/include/c++/13/istream \
   /usr/include/c++/13/limits \
+  /usr/include/c++/13/locale \
   /usr/include/c++/13/map \
   /usr/include/c++/13/memory \
   /usr/include/c++/13/new \
@@ -1106,6 +1132,7 @@ CMakeFiles/the_minkowski_sum.dir/src/main.cpp.o: /home/kythhiwa/The_Minkowski_su
   /usr/include/c++/13/pstl/pstl_config.h \
   /usr/include/c++/13/random \
   /usr/include/c++/13/set \
+  /usr/include/c++/13/sstream \
   /usr/include/c++/13/stack \
   /usr/include/c++/13/stdexcept \
   /usr/include/c++/13/stdlib.h \
@@ -1136,6 +1163,7 @@ CMakeFiles/the_minkowski_sum.dir/src/main.cpp.o: /home/kythhiwa/The_Minkowski_su
   /usr/include/errno.h \
   /usr/include/features-time64.h \
   /usr/include/features.h \
+  /usr/include/libintl.h \
   /usr/include/linux/errno.h \
   /usr/include/locale.h \
   /usr/include/math.h \
@@ -1229,14 +1257,17 @@ CMakeFiles/the_minkowski_sum.dir/src/main.cpp.o: /home/kythhiwa/The_Minkowski_su
   /usr/include/x86_64-linux-gnu/c++/13/bits/error_constants.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/gthr-default.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/gthr.h \
+  /usr/include/x86_64-linux-gnu/c++/13/bits/messages_members.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/opt_random.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h \
+  /usr/include/x86_64-linux-gnu/c++/13/bits/time_members.h \
   /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
   /usr/include/x86_64-linux-gnu/gnu/stubs.h \
   /usr/include/x86_64-linux-gnu/sys/cdefs.h \
   /usr/include/x86_64-linux-gnu/sys/select.h \
   /usr/include/x86_64-linux-gnu/sys/single_threaded.h \
   /usr/include/x86_64-linux-gnu/sys/types.h \
+  /usr/lib/gcc/x86_64-linux-gnu/13/include/float.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h
@@ -1271,6 +1302,7 @@ CMakeFiles/the_minkowski_sum.dir/src/render.cpp.o: /home/kythhiwa/The_Minkowski_
   /usr/include/c++/13/bits/basic_string.tcc \
   /usr/include/c++/13/bits/char_traits.h \
   /usr/include/c++/13/bits/charconv.h \
+  /usr/include/c++/13/bits/codecvt.h \
   /usr/include/c++/13/bits/concept_check.h \
   /usr/include/c++/13/bits/cpp_type_traits.h \
   /usr/include/c++/13/bits/cxxabi_forced.h \
@@ -1291,8 +1323,11 @@ CMakeFiles/the_minkowski_sum.dir/src/render.cpp.o: /home/kythhiwa/The_Minkowski_
   /usr/include/c++/13/bits/istream.tcc \
   /usr/include/c++/13/bits/locale_classes.h \
   /usr/include/c++/13/bits/locale_classes.tcc \
+  /usr/include/c++/13/bits/locale_conv.h \
   /usr/include/c++/13/bits/locale_facets.h \
   /usr/include/c++/13/bits/locale_facets.tcc \
+  /usr/include/c++/13/bits/locale_facets_nonio.h \
+  /usr/include/c++/13/bits/locale_facets_nonio.tcc \
   /usr/include/c++/13/bits/localefwd.h \
   /usr/include/c++/13/bits/memory_resource.h \
   /usr/include/c++/13/bits/memoryfwd.h \
@@ -1305,6 +1340,7 @@ CMakeFiles/the_minkowski_sum.dir/src/render.cpp.o: /home/kythhiwa/The_Minkowski_
   /usr/include/c++/13/bits/postypes.h \
   /usr/include/c++/13/bits/predefined_ops.h \
   /usr/include/c++/13/bits/ptr_traits.h \
+  /usr/include/c++/13/bits/quoted_string.h \
   /usr/include/c++/13/bits/random.h \
   /usr/include/c++/13/bits/random.tcc \
   /usr/include/c++/13/bits/range_access.h \
@@ -1314,6 +1350,7 @@ CMakeFiles/the_minkowski_sum.dir/src/render.cpp.o: /home/kythhiwa/The_Minkowski_
   /usr/include/c++/13/bits/shared_ptr_atomic.h \
   /usr/include/c++/13/bits/shared_ptr_base.h \
   /usr/include/c++/13/bits/specfun.h \
+  /usr/include/c++/13/bits/sstream.tcc \
   /usr/include/c++/13/bits/std_abs.h \
   /usr/include/c++/13/bits/stl_algobase.h \
   /usr/include/c++/13/bits/stl_bvector.h \
@@ -1347,12 +1384,14 @@ CMakeFiles/the_minkowski_sum.dir/src/render.cpp.o: /home/kythhiwa/The_Minkowski_
   /usr/include/c++/13/bits/vector.tcc \
   /usr/include/c++/13/cctype \
   /usr/include/c++/13/cerrno \
+  /usr/include/c++/13/cfloat \
   /usr/include/c++/13/clocale \
   /usr/include/c++/13/cmath \
   /usr/include/c++/13/cstddef \
   /usr/include/c++/13/cstdint \
   /usr/include/c++/13/cstdio \
   /usr/include/c++/13/cstdlib \
+  /usr/include/c++/13/ctime \
   /usr/include/c++/13/cwchar \
   /usr/include/c++/13/cwctype \
   /usr/include/c++/13/debug/assertions.h \
@@ -1367,11 +1406,13 @@ CMakeFiles/the_minkowski_sum.dir/src/render.cpp.o: /home/kythhiwa/The_Minkowski_
   /usr/include/c++/13/ext/string_conversions.h \
   /usr/include/c++/13/ext/type_traits.h \
   /usr/include/c++/13/initializer_list \
+  /usr/include/c++/13/iomanip \
   /usr/include/c++/13/ios \
   /usr/include/c++/13/iosfwd \
   /usr/include/c++/13/iostream \
   /usr/include/c++/13/istream \
   /usr/include/c++/13/limits \
+  /usr/include/c++/13/locale \
   /usr/include/c++/13/map \
   /usr/include/c++/13/memory \
   /usr/include/c++/13/new \
@@ -1382,6 +1423,7 @@ CMakeFiles/the_minkowski_sum.dir/src/render.cpp.o: /home/kythhiwa/The_Minkowski_
   /usr/include/c++/13/pstl/glue_numeric_defs.h \
   /usr/include/c++/13/pstl/pstl_config.h \
   /usr/include/c++/13/random \
+  /usr/include/c++/13/sstream \
   /usr/include/c++/13/stack \
   /usr/include/c++/13/stdexcept \
   /usr/include/c++/13/stdlib.h \
@@ -1412,6 +1454,7 @@ CMakeFiles/the_minkowski_sum.dir/src/render.cpp.o: /home/kythhiwa/The_Minkowski_
   /usr/include/errno.h \
   /usr/include/features-time64.h \
   /usr/include/features.h \
+  /usr/include/libintl.h \
   /usr/include/linux/errno.h \
   /usr/include/locale.h \
   /usr/include/math.h \
@@ -1505,14 +1548,17 @@ CMakeFiles/the_minkowski_sum.dir/src/render.cpp.o: /home/kythhiwa/The_Minkowski_
   /usr/include/x86_64-linux-gnu/c++/13/bits/error_constants.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/gthr-default.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/gthr.h \
+  /usr/include/x86_64-linux-gnu/c++/13/bits/messages_members.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/opt_random.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h \
+  /usr/include/x86_64-linux-gnu/c++/13/bits/time_members.h \
   /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
   /usr/include/x86_64-linux-gnu/gnu/stubs.h \
   /usr/include/x86_64-linux-gnu/sys/cdefs.h \
   /usr/include/x86_64-linux-gnu/sys/select.h \
   /usr/include/x86_64-linux-gnu/sys/single_threaded.h \
   /usr/include/x86_64-linux-gnu/sys/types.h \
+  /usr/lib/gcc/x86_64-linux-gnu/13/include/float.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h
@@ -1964,8 +2010,6 @@ CMakeFiles/the_minkowski_sum.dir/src/vertex.cpp.o: /home/kythhiwa/The_Minkowski_
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h
 
 
-/home/kythhiwa/The_Minkowski_sum/src/vertex.cpp:
-
 /home/kythhiwa/The_Minkowski_sum/src/render.cpp:
 
 /usr/include/c++/13/stdlib.h:
@@ -2010,25 +2054,37 @@ CMakeFiles/the_minkowski_sum.dir/src/vertex.cpp.o: /home/kythhiwa/The_Minkowski_
 
 /usr/include/x86_64-linux-gnu/gnu/stubs.h:
 
+/usr/include/x86_64-linux-gnu/c++/13/bits/time_members.h:
+
 /usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h:
+
+/usr/include/x86_64-linux-gnu/c++/13/bits/messages_members.h:
 
 /usr/include/x86_64-linux-gnu/c++/13/bits/gthr.h:
 
 /usr/include/x86_64-linux-gnu/c++/13/bits/error_constants.h:
 
-/usr/include/c++/13/ext/string_conversions.h:
+/usr/include/x86_64-linux-gnu/c++/13/bits/ctype_base.h:
 
-/usr/include/x86_64-linux-gnu/bits/types/sigset_t.h:
+/usr/include/x86_64-linux-gnu/c++/13/bits/cpu_defines.h:
 
-/home/kythhiwa/The_Minkowski_sum/src/sweepline.cpp:
+/usr/include/x86_64-linux-gnu/c++/13/bits/c++locale.h:
 
-/usr/include/c++/13/ext/concurrence.h:
+/usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h:
 
-/usr/include/c++/13/pstl/glue_algorithm_defs.h:
+/usr/include/x86_64-linux-gnu/c++/13/bits/c++allocator.h:
 
-/usr/include/c++/13/cctype:
+/usr/include/x86_64-linux-gnu/c++/13/bits/atomic_word.h:
 
-/usr/include/c++/13/tr1/gamma.tcc:
+/usr/include/x86_64-linux-gnu/bits/wordsize.h:
+
+/usr/include/x86_64-linux-gnu/bits/wctype-wchar.h:
+
+/usr/include/x86_64-linux-gnu/bits/wchar.h:
+
+/usr/include/x86_64-linux-gnu/bits/waitflags.h:
+
+/usr/include/x86_64-linux-gnu/bits/uintn-identity.h:
 
 /usr/include/c++/13/debug/assertions.h:
 
@@ -2038,13 +2094,21 @@ CMakeFiles/the_minkowski_sum.dir/src/vertex.cpp.o: /home/kythhiwa/The_Minkowski_
 
 /usr/include/c++/13/clocale:
 
+/usr/include/c++/13/bits/locale_facets.h:
+
 /usr/include/c++/13/cerrno:
 
 /usr/include/x86_64-linux-gnu/bits/stdint-least.h:
 
+/usr/include/c++/13/cctype:
+
+/usr/include/c++/13/tr1/gamma.tcc:
+
 /usr/include/c++/13/bits/vector.tcc:
 
 /usr/include/c++/13/deque:
+
+/usr/include/c++/13/ctime:
 
 /usr/include/c++/13/bits/stl_function.h:
 
@@ -2064,6 +2128,8 @@ CMakeFiles/the_minkowski_sum.dir/src/vertex.cpp.o: /home/kythhiwa/The_Minkowski_
 
 /usr/include/c++/13/bits/stl_multiset.h:
 
+/usr/include/c++/13/iomanip:
+
 /usr/include/x86_64-linux-gnu/bits/mathcalls-narrow.h:
 
 /usr/include/c++/13/bits/unordered_set.h:
@@ -2074,9 +2140,11 @@ CMakeFiles/the_minkowski_sum.dir/src/vertex.cpp.o: /home/kythhiwa/The_Minkowski_
 
 /usr/include/c++/13/bits/align.h:
 
-/usr/include/x86_64-linux-gnu/bits/waitflags.h:
-
 /usr/include/c++/13/bits/unordered_map.h:
+
+/home/kythhiwa/The_Minkowski_sum/src/vertex.cpp:
+
+/usr/include/c++/13/bits/quoted_string.h:
 
 /usr/include/c++/13/bits/new_allocator.h:
 
@@ -2084,7 +2152,7 @@ CMakeFiles/the_minkowski_sum.dir/src/vertex.cpp.o: /home/kythhiwa/The_Minkowski_
 
 /usr/include/c++/13/bits/stl_map.h:
 
-/usr/include/c++/13/bits/stl_tree.h:
+/usr/include/c++/13/locale:
 
 /usr/include/c++/13/bits/stl_heap.h:
 
@@ -2097,6 +2165,10 @@ CMakeFiles/the_minkowski_sum.dir/src/vertex.cpp.o: /home/kythhiwa/The_Minkowski_
 /usr/include/c++/13/bits/stl_algo.h:
 
 /usr/include/c++/13/cstddef:
+
+/usr/include/c++/13/bits/sstream.tcc:
+
+/usr/include/c++/13/cwctype:
 
 /home/kythhiwa/The_Minkowski_sum/src/face.h:
 
@@ -2126,11 +2198,11 @@ CMakeFiles/the_minkowski_sum.dir/src/vertex.cpp.o: /home/kythhiwa/The_Minkowski_
 
 /usr/include/c++/13/bits/ptr_traits.h:
 
-/usr/include/x86_64-linux-gnu/c++/13/bits/c++locale.h:
-
 /usr/include/c++/13/bits/stl_set.h:
 
 /usr/include/c++/13/bits/ostream_insert.h:
+
+/usr/include/c++/13/bits/ostream.tcc:
 
 /usr/include/c++/13/bits/streambuf.tcc:
 
@@ -2139,6 +2211,8 @@ CMakeFiles/the_minkowski_sum.dir/src/vertex.cpp.o: /home/kythhiwa/The_Minkowski_
 /usr/include/c++/13/bits/basic_string.h:
 
 /usr/include/c++/13/tr1/poly_laguerre.tcc:
+
+/usr/include/libintl.h:
 
 /home/kythhiwa/The_Minkowski_sum/src/vertex.h:
 
@@ -2150,8 +2224,6 @@ CMakeFiles/the_minkowski_sum.dir/src/vertex.cpp.o: /home/kythhiwa/The_Minkowski_
 
 /usr/include/x86_64-linux-gnu/asm/errno.h:
 
-/usr/include/c++/13/bits/locale_facets.h:
-
 /usr/include/c++/13/backward/binders.h:
 
 /usr/include/c++/13/ext/aligned_buffer.h:
@@ -2161,6 +2233,10 @@ CMakeFiles/the_minkowski_sum.dir/src/vertex.cpp.o: /home/kythhiwa/The_Minkowski_
 /usr/include/c++/13/bits/utility.h:
 
 /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h:
+
+/usr/include/c++/13/bits/basic_ios.tcc:
+
+/usr/include/c++/13/pstl/execution_defs.h:
 
 /usr/include/c++/13/ext/alloc_traits.h:
 
@@ -2176,9 +2252,13 @@ CMakeFiles/the_minkowski_sum.dir/src/vertex.cpp.o: /home/kythhiwa/The_Minkowski_
 
 /usr/include/x86_64-linux-gnu/bits/fp-logb.h:
 
-/usr/include/c++/13/initializer_list:
+/usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
 
-/usr/include/c++/13/tr1/bessel_function.tcc:
+/usr/include/c++/13/bits/node_handle.h:
+
+/usr/include/c++/13/bits/functexcept.h:
+
+/usr/include/x86_64-linux-gnu/bits/libc-header-start.h:
 
 /usr/include/c++/13/bits/basic_ios.h:
 
@@ -2194,30 +2274,6 @@ CMakeFiles/the_minkowski_sum.dir/src/vertex.cpp.o: /home/kythhiwa/The_Minkowski_
 
 /usr/include/c++/13/backward/auto_ptr.h:
 
-/home/kythhiwa/The_Minkowski_sum/src/dcel.cpp:
-
-/usr/include/c++/13/bits/stl_vector.h:
-
-/usr/include/x86_64-linux-gnu/sys/types.h:
-
-/usr/include/c++/13/unordered_set:
-
-/usr/include/c++/13/bits/stl_tempbuf.h:
-
-/usr/include/c++/13/cstdlib:
-
-/home/kythhiwa/The_Minkowski_sum/src/halfEdge.h:
-
-/usr/include/c++/13/ext/numeric_traits.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h:
-
-/usr/include/c++/13/bits/stl_iterator.h:
-
-/usr/include/c++/13/bits/functexcept.h:
-
-/usr/include/x86_64-linux-gnu/bits/libc-header-start.h:
-
 /usr/include/c++/13/bits/postypes.h:
 
 /home/kythhiwa/The_Minkowski_sum/src/config.h:
@@ -2232,7 +2288,9 @@ CMakeFiles/the_minkowski_sum.dir/src/vertex.cpp.o: /home/kythhiwa/The_Minkowski_
 
 /usr/include/c++/13/bits/localefwd.h:
 
-/home/kythhiwa/The_Minkowski_sum/src/eventqueue.h:
+/usr/include/x86_64-linux-gnu/bits/waitstatus.h:
+
+/usr/include/c++/13/bits/exception_defines.h:
 
 /usr/include/c++/13/bits/predefined_ops.h:
 
@@ -2258,13 +2316,27 @@ CMakeFiles/the_minkowski_sum.dir/src/vertex.cpp.o: /home/kythhiwa/The_Minkowski_
 
 /usr/include/c++/13/cwchar:
 
-/usr/include/c++/13/cwctype:
+/usr/include/c++/13/bits/stl_vector.h:
 
-/usr/include/c++/13/ext/type_traits.h:
+/usr/include/x86_64-linux-gnu/sys/types.h:
+
+/usr/include/c++/13/unordered_set:
+
+/usr/include/c++/13/bits/stl_tempbuf.h:
+
+/usr/include/c++/13/cstdlib:
+
+/home/kythhiwa/The_Minkowski_sum/src/halfEdge.h:
+
+/usr/include/c++/13/bits/stl_tree.h:
+
+/usr/include/c++/13/bits/codecvt.h:
 
 /usr/include/c++/13/bits/deque.tcc:
 
 /usr/include/x86_64-linux-gnu/bits/endian.h:
+
+/home/kythhiwa/The_Minkowski_sum/src/eventqueue.h:
 
 /usr/include/x86_64-linux-gnu/bits/flt-eval-method.h:
 
@@ -2288,6 +2360,8 @@ CMakeFiles/the_minkowski_sum.dir/src/vertex.cpp.o: /home/kythhiwa/The_Minkowski_
 
 /home/kythhiwa/The_Minkowski_sum/src/dcel.h:
 
+/usr/include/c++/13/bits/locale_facets_nonio.tcc:
+
 /usr/include/c++/13/bits/hashtable_policy.h:
 
 /usr/include/x86_64-linux-gnu/c++/13/bits/ctype_inline.h:
@@ -2304,25 +2378,17 @@ CMakeFiles/the_minkowski_sum.dir/src/vertex.cpp.o: /home/kythhiwa/The_Minkowski_
 
 /usr/include/x86_64-linux-gnu/bits/stdlib-float.h:
 
-/usr/include/x86_64-linux-gnu/bits/uintn-identity.h:
-
 /usr/include/c++/13/bits/exception_ptr.h:
 
+/usr/include/c++/13/bits/locale_conv.h:
+
 /usr/include/c++/13/bits/istream.tcc:
-
-/usr/include/c++/13/bits/basic_ios.tcc:
-
-/usr/include/c++/13/pstl/execution_defs.h:
 
 /usr/include/c++/13/bits/functional_hash.h:
 
 /usr/include/errno.h:
 
 /usr/include/c++/13/bits/ios_base.h:
-
-/usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h:
-
-/usr/include/c++/13/bits/ostream.tcc:
 
 /usr/include/c++/13/stack:
 
@@ -2331,6 +2397,10 @@ CMakeFiles/the_minkowski_sum.dir/src/vertex.cpp.o: /home/kythhiwa/The_Minkowski_
 /usr/include/c++/13/bits/uniform_int_dist.h:
 
 /usr/include/c++/13/bits/locale_classes.tcc:
+
+/home/kythhiwa/The_Minkowski_sum/src/dcel.cpp:
+
+/usr/include/c++/13/bits/locale_facets_nonio.h:
 
 /usr/include/c++/13/bits/invoke.h:
 
@@ -2344,11 +2414,29 @@ CMakeFiles/the_minkowski_sum.dir/src/vertex.cpp.o: /home/kythhiwa/The_Minkowski_
 
 /usr/include/c++/13/bits/memoryfwd.h:
 
+/home/kythhiwa/The_Minkowski_sum/src/sweepline.cpp:
+
+/usr/include/c++/13/ext/concurrence.h:
+
+/usr/include/c++/13/pstl/glue_algorithm_defs.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h:
+
+/usr/include/c++/13/bits/stl_iterator.h:
+
+/usr/include/c++/13/ext/numeric_traits.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/sigset_t.h:
+
+/usr/include/c++/13/ext/string_conversions.h:
+
+/usr/include/c++/13/ext/type_traits.h:
+
+/usr/include/c++/13/tr1/bessel_function.tcc:
+
+/usr/include/c++/13/initializer_list:
+
 /usr/include/c++/13/ios:
-
-/usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
-
-/usr/include/c++/13/bits/node_handle.h:
 
 /usr/include/GL/glut.h:
 
@@ -2365,8 +2453,6 @@ CMakeFiles/the_minkowski_sum.dir/src/vertex.cpp.o: /home/kythhiwa/The_Minkowski_
 /usr/include/x86_64-linux-gnu/bits/floatn.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h:
-
-/usr/include/x86_64-linux-gnu/c++/13/bits/c++allocator.h:
 
 /usr/include/c++/13/exception:
 
@@ -2402,15 +2488,13 @@ CMakeFiles/the_minkowski_sum.dir/src/vertex.cpp.o: /home/kythhiwa/The_Minkowski_
 
 /usr/include/c++/13/tr1/modified_bessel_func.tcc:
 
-/usr/include/c++/13/bits/exception_defines.h:
-
-/usr/include/x86_64-linux-gnu/bits/waitstatus.h:
-
 /usr/include/c++/13/tr1/poly_hermite.tcc:
 
 /usr/include/c++/13/tr1/special_function_util.h:
 
 /usr/include/stdc-predef.h:
+
+/usr/include/c++/13/cfloat:
 
 /usr/include/c++/13/bits/nested_exception.h:
 
@@ -2421,6 +2505,8 @@ CMakeFiles/the_minkowski_sum.dir/src/vertex.cpp.o: /home/kythhiwa/The_Minkowski_
 /usr/include/c++/13/unordered_map:
 
 /usr/include/c++/13/vector:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/include/float.h:
 
 /usr/include/ctype.h:
 
@@ -2506,8 +2592,6 @@ CMakeFiles/the_minkowski_sum.dir/src/vertex.cpp.o: /home/kythhiwa/The_Minkowski_
 
 /usr/include/x86_64-linux-gnu/bits/timex.h:
 
-/usr/include/x86_64-linux-gnu/c++/13/bits/cpu_defines.h:
-
 /usr/include/math.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/__FILE.h:
@@ -2526,13 +2610,11 @@ CMakeFiles/the_minkowski_sum.dir/src/vertex.cpp.o: /home/kythhiwa/The_Minkowski_
 
 /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h:
 
+/usr/include/c++/13/sstream:
+
 /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h:
 
-/usr/include/x86_64-linux-gnu/bits/wchar.h:
-
 /usr/include/x86_64-linux-gnu/bits/types/locale_t.h:
-
-/usr/include/x86_64-linux-gnu/bits/wctype-wchar.h:
 
 /usr/include/asm-generic/errno.h:
 
@@ -2547,9 +2629,3 @@ CMakeFiles/the_minkowski_sum.dir/src/vertex.cpp.o: /home/kythhiwa/The_Minkowski_
 /usr/include/x86_64-linux-gnu/bits/types/timer_t.h:
 
 /usr/include/x86_64-linux-gnu/bits/typesizes.h:
-
-/usr/include/x86_64-linux-gnu/bits/wordsize.h:
-
-/usr/include/x86_64-linux-gnu/c++/13/bits/atomic_word.h:
-
-/usr/include/x86_64-linux-gnu/c++/13/bits/ctype_base.h:

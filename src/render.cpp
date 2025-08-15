@@ -42,7 +42,7 @@ void Render::renderEdge(const Dcel& dcel, double r, double g, double b, double s
     glLineWidth(size);
     glBegin(GL_LINES);
     for (const auto &h: dcel.getHalfEdge()) {
-        if (h->getIncidentFace()->getId() != h->getTwin()->getIncidentFace()->getId()) continue;// !!!!!!!!!!
+       // if (h->getIncidentFace()->getType() == Face::Type::INNER &&  h->getTwin()->getIncidentFace()->getType() == Face::Type::INNER) continue;
         glVertex2d(h->getOrigin()->getX(), h->getOrigin()->getY());
         glVertex2d(h->getEndPoint()->getX(), h->getEndPoint()->getY());
     }

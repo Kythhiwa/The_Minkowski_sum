@@ -392,37 +392,37 @@ std::pair<double, double> Dcel::getInnerPoint(HalfEdge* startEdge) const {
 
     if (area < 0) return {-1000000, -1000000}; 
     std::vector<std::pair<double, double>> vertices;
-    double min_x = DBL_MAX, max_x = -DBL_MAX;
-    double min_y = DBL_MAX, max_y = -DBL_MAX;
-    
     edge = startEdge;
     do {
-        double x = edge->getOrigin()->getX();
-        double y = edge->getOrigin()->getY();
-        vertices.emplace_back(x, y);
-        
-        min_x = std::min(min_x, x);
-        max_x = std::max(max_x, x);
-        min_y = std::min(min_y, y);
-        max_y = std::max(max_y, y);
-        
+        vertices.emplace_back(edge->getOrigin()->getX(), 
+                           edge->getOrigin()->getY());
         edge = edge->getNext();
     } while (edge != startEdge);
 
-    const double eps = Geometry::eps * 2; 
-    double center_x = (min_x + max_x) / 2;
-    double center_y = (min_y + max_y) / 2;
-    
-    double safe_x = center_x;
-    double safe_y = center_y;
-    
-    if (center_x - min_x < eps) safe_x = min_x + eps;
-    if (max_x - center_x < eps) safe_x = max_x - eps;
-    if (center_y - min_y < eps) safe_y = min_y + eps;
-    if (max_y - center_y < eps) safe_y = max_y - eps;
+    double sum_x = 0, sum_y = 0;
+    for (const auto& [x, y] : vertices) {
+        sum_x += x;
+        sum_y += y;
+    }
+    double center_x = sum_x / vertices.size();
+    double center_y = sum_y / vertices.size();
 
-    return {safe_x, safe_y};
+    double min_dist = std::numeric_limits<double>::max();
+    std::pair<double, double> closest_vertex;
+    for (const auto& [x, y] : vertices) {
+        double dist = (x-center_x)*(x-center_x) + (y-center_y)*(y-center_y);
+        if (dist < min_dist) {
+            min_dist = dist;
+            closest_vertex = {x, y};
+        }
+    }
+
+    return {
+        center_x + (closest_vertex.first - center_x) / 3,
+        center_y + (closest_vertex.second - center_y) / 3
+    };
 }
+
 void Dcel::solve(Dcel& dest, Dcel& a, Dcel& b) {
     dest.face.clear();
     std::cout << dest.face.size() << "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\n";
@@ -447,13 +447,10 @@ void Dcel::solve(Dcel& dest, Dcel& a, Dcel& b) {
         else if (f == nullptr) {
             if (s->getType() == Face::Type::INNER) fac->setType(Face::Type::INNER);
             if (s->getType() == Face::Type::HOLES) fac->setType(Face::Type::HOLES);
-            std::cout << p.first << "-" << p.second <<"+++++++++++++++++++++++++++++++++++++\n";
         }
         else if (s == nullptr) {
             if (f->getType() == Face::Type::INNER) fac->setType(Face::Type::INNER);
             if (f->getType() == Face::Type::HOLES) fac->setType(Face::Type::HOLES);
-
-            std::cout << p.first << "-" << p.second <<"+++++++++++++++++++++++++++++++++++++\n";
         }
         else if (f->getType() == Face::Type::INNER && s->getType() == Face::Type::INNER) fac->setType(Face::Type::INNER);
         else if (f->getType() == Face::Type::HOLES && s->getType() == Face::Type::HOLES) fac->setType(Face::Type::HOLES);
@@ -463,44 +460,7 @@ void Dcel::solve(Dcel& dest, Dcel& a, Dcel& b) {
     }
     //auto r = getInnerPoint(face[fi]->getOuterComponent());
     //std::cout << std::setprecision(10) << r.first << " " << r.second << ' ';
-    int id = rand() % 100000;
-    for (const auto& v : dest.vertex) {
-        v->setId(id);
-    }
-    for (const auto& h : dest.halfEdge) {
-        h->setId(id);
-    }
-    for (const auto& f : dest.face) {
-        f->setId(id);
-    }
-    std::vector<Vertex*> vert;
-    std::vector<HalfEdge*> half;
-    std::vector<Face*> fac;
-    std::map<const Vertex*, Vertex*> vertexMap;
-    std::map<const HalfEdge*, HalfEdge*> halfEdgeMap;
-    
 
-
-
-
-
-//Реализовать идею 
-
-
-
-
-
-
-    for (const auto& f : dest.face) {
-        if (f->getType() == Face::Type::OUTER) {
-            
-        }
-    }
-   // dest.vertex.clear();
-
-    //dest.halfEdge.clear();
-
-    //dest.face.clear();
 }
 
 void Dcel::merge(Dcel& dest, Dcel& a, Dcel& b) {

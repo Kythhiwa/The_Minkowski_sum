@@ -18,6 +18,7 @@ private:
     Type type_;
     int id_;
 public:
+    Face(int id) : id_(id) {}
     Face(Type type) : type_(type) {}
     Face(const Face& other) : id_(other.id_), type_(other.type_), outerComponent_(nullptr) {}
 

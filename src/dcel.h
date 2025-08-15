@@ -9,8 +9,9 @@
 #include <unordered_set>
 #include <map>
 #include <stack>
-
-
+#include <iomanip>
+#include <limits>
+#include <cfloat>
 class Vertex;
 class HalfEdge;
 class Face;
@@ -20,20 +21,23 @@ class Dcel {
     std::vector<std::unique_ptr<HalfEdge>> halfEdge;
     std::vector<std::unique_ptr<Face>> face;
     int id_;
-
-    void add(const Dcel& source);// нет логики holes, объединяет только по вершинам и простым ребра, не корректные incident_edges
 public:
     Dcel();
     Dcel(std::vector<std::pair<double, double>> points, int id = 0);
     ~Dcel();
 
         
+    static void solve(Dcel& dest, Dcel& a, Dcel& b);
+    void add(const Dcel& source);
     const std::vector<Vertex*> getVertex() const;
     const std::vector<HalfEdge*> getHalfEdge() const;
     const std::vector<Face*> getFace() const;
 
     void setHoles(std::vector<std::pair<double, double>> points);
-
+    
+    bool isCounterClockwise(Face* face) const;
+    Face* findFacePoint(double x, double y) const;
+    std::pair<double, double> getInnerPoint(HalfEdge* start) const;
     static void merge(Dcel& dest, Dcel& a, Dcel& b);
     void print() const;
     void fix();
