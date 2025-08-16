@@ -519,34 +519,41 @@ void Dcel::solve(Dcel& dest, Dcel& a, Dcel& b) {
     for (const auto& f : dest.face) {
         f->setId(id);
     }
-    std::vector<Vertex*> vert;
-    std::vector<HalfEdge*> half;
-    std::vector<Face*> fac;
+    std::vector<std::unique_ptr<Vertex>> vert;
+    std::vector<std::unique_ptr<HalfEdge>> half;
+    std::vector<std::unique_ptr<Face>> fac;
     std::map<const Vertex*, Vertex*> vertexMap;
     std::map<const HalfEdge*, HalfEdge*> halfEdgeMap;
     
-
-
-
-
-
-//Реализовать идею 
-
-
-
-
-
+    
 
     for (const auto& f : dest.face) {
-        if (f->getType() == Face::Type::OUTER) {
-            
+        if (f->getType() == Face::Type::OUTER || f->getType() == Face::Type::HOLES) {
+            HalfEdge* cur = f->getOuterComponent();
+            std::vector<std::unique_ptr<Vertex>> ve;
+            std::vector<std::unique_ptr<HalfEdge>> hal;
+            std::vector<std::unique_ptr<Face>> fa;
+
+
         }
     }
-   // dest.vertex.clear();
 
-    //dest.halfEdge.clear();
 
-    //dest.face.clear();
+
+    dest.vertex.clear();
+
+    dest.halfEdge.clear();
+
+    dest.face.clear();
+    for (auto &now : vert) {
+        dest.vertex.push_back(std::move(now));
+    }
+    for (auto &now : half) {
+       dest.halfEdge.push_back(std::move(now));
+     }
+    for (auto &now : fac) {
+        dest.face.push_back(std::move(now));
+    }
 }
 
 void Dcel::merge(Dcel& dest, Dcel& a, Dcel& b) {

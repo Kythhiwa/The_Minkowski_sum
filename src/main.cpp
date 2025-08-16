@@ -38,8 +38,8 @@ void init(int a) {
         {6, 0}
 
     };
-    //p1 =  Random::getRandPolygon(7);
-    //p2 =  Random::getRandPolygon(8);
+    p1 =  Random::getRandPolygon(7);
+    p2 =  Random::getRandPolygon(8);
     for (auto [x, y] : p1) {
         std::cout << "{"<< x << ", " << y << "}, \n";
     }
