@@ -39,7 +39,7 @@ public:
     bool isCounterClockwise(Face* face) const;
     Face* findFacePoint(double x, double y) const;
     std::pair<double, double> getInnerPoint(HalfEdge* start) const;
-    static void merge(Dcel& dest, Dcel& a, Dcel& b);
+    static void merge(Dcel& dest, Dcel& a);
     void print() const;
     void fix();
     void dfs() const;

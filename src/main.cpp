@@ -17,53 +17,49 @@ Dcel c;
 void init(int a) {
     
     std::vector<std::pair<double,double>> p11 ={
-        {3, 2.5},
-        {3, 0.5},
-        {5, 0.5},
-        {5, 2.5}
+         {-5, 5}, {-5, -5}, {5, -5}, {5, 5}
+
     };
     std::vector<std::pair<double,double>> p21 ={
         {-1, 1}, {-1, -1}, {1, -1}, {1, 1}
     };
-   
-    std::vector<std::pair<double,double>> p1 = {
+    std::vector<std::pair<double,double>> p22 ={
+        {-2, 2}, {-2, -2}, {2, -4}, {2, 2}
+    };
+   std::vector<std::pair<double,double>> p1 = {
         {2, 3},
-        {2, 0},
-        {6, 0},
+        {-1, 0},
+        {7, -5},
     };
 
     std::vector<std::pair<double,double>> p2 = {
-        {2, 0},
+        {1, 0},
         {3, -5},
-        {6, 0}
+        {6, 0.1}
 
-    };
-    p1 =  Random::getRandPolygon(7);
-    p2 =  Random::getRandPolygon(8);
-    for (auto [x, y] : p1) {
-        std::cout << "{"<< x << ", " << y << "}, \n";
-    }
-std::cout << "\n";
-    for (auto [x, y] : p2) {
-        std::cout << "{"<< x << ", " << y << "}, \n";
-    }
-std::cout << "\n";
+    };      
+    //p1 =  Random::getRandPolygon(7);
+    //p2 =  Random::getRandPolygon(8);
+    
 
 
 
     Dcel d1(p1);
     Dcel d2(p2);
-    //d1.seHoles(p3);
-    //
-    auto r = d1.getInnerPoint(d1.getHalfEdge()[1]);
-    std::cout << r.first << ":"<< r.second << "\n"; 
-    //return ;
-   // c.add(d1);
-    Dcel::merge(c, d1, d2);
-    //Dcel::merge(c, q, d3);
-    c.print();
 
+  
+    Dcel::merge(c, d1);
+   Dcel::merge(c, d2);
+    Dcel d3(p21);
+    Dcel d4(p11);
+    d4.setHoles(p22);
+   Dcel::merge(c, d3);
+   Dcel::merge(c, d4);
+    c.print();
+    std::cout << "\n";
 }
+
+
 void display() {
     glClearColor(0.08f, 0.09f, 0.12f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
