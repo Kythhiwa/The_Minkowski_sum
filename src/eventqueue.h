@@ -3,7 +3,6 @@
 
 #include <set>
 
-
 template <typename Event>
 class EventQueue {
     std::set<Event> Q;

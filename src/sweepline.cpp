@@ -7,7 +7,7 @@ double Sweepline::SweeplineComparator::getIntX(const HalfEdge *e) const {
     const Vertex* v1 = e->getOrigin();
     const Vertex* v2 = e->getEndPoint();
     if (e->isHorizontal()) {
-        return std::min(v1->getX(), v2->getX());
+        return std::min(v1->getX(), v2->getX()) ;
     }
     double t = (*sweepline_y - v1->getY()) / (v2->getY() - v1->getY());
     return v1->getX() + t * (v2->getX() - v1->getX());
@@ -25,6 +25,7 @@ bool Sweepline::SweeplineComparator::operator()(const HalfEdge *a, const HalfEdg
     const Vertex* a2 = a->getEndPoint();
     const Vertex* b1 = b->getOrigin();
     const Vertex* b2 = b->getEndPoint();
+
 
     double slope_a = (a2->getX() - a1->getX()) / (a2->getY() - a1->getY());
     double slope_b = (b2->getX() - b1->getX()) / (b2->getY() - b1->getY());

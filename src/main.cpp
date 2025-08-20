@@ -21,42 +21,52 @@ void init(int a) {
 
     };
     std::vector<std::pair<double,double>> p21 ={
-        {-1, 1}, {-1, -1}, {1, -1}, {1, 1}
+        {-1.3, 1}, {-1, -1.3}, {1.2, -1}, {1, 1}
     };
     std::vector<std::pair<double,double>> p22 ={
-        {-2, 2}, {-2, -2}, {2, -4}, {2, 2}
+        {-0.5, 2}, {-2, -2}, {2, -2}, {2, 2}
     };
    std::vector<std::pair<double,double>> p1 = {
         {2, 3},
-        {-1, 0},
-        {7, -5},
+        {2, 0},
+        {4, 1},
+        {6, -1},
+        {8, 2}
     };
 
     std::vector<std::pair<double,double>> p2 = {
-        {1, 0},
-        {3, -5},
-        {6, 0.1}
+        {2, -2},
+        {6, -3},
+        {8, 2},
+        {6, -1},
+        {4, 0.5},
+        {2, 0}
 
     };      
-    //p1 =  Random::getRandPolygon(7);
+    p1 =  Random::getRandPolygon(7);
     //p2 =  Random::getRandPolygon(8);
-    
+    //p21 =  Random::getRandPolygon(8);
 
 
 
     Dcel d1(p1);
     Dcel d2(p2);
+   for (const auto& v : d1.getVertex()) {
+   //    std::cout << "{" << v->getX() << ", " << v->getY() << "},\n";
+   }
+   std::cout << "\n";
 
-  
-    Dcel::merge(c, d1);
-   Dcel::merge(c, d2);
-    Dcel d3(p21);
-    Dcel d4(p11);
-    d4.setHoles(p22);
-   Dcel::merge(c, d3);
-   Dcel::merge(c, d4);
+   for (const auto& v : d2.getVertex()) {
+     //  std::cout << "{" << v->getX() << ", " << v->getY() << "},\n";
+   }
+   Dcel::merge(c, d1);
+   // Dcel::merge(c, d2);
+    //Dcel d4(p11);
+    //d4.setHoles(p22);
     c.print();
-    std::cout << "\n";
+   // std::cout << "\n";
+    std::cout <<"SOSSSSSSS\n";
+   d1.triang();
 }
 
 
@@ -69,6 +79,9 @@ void display() {
 }
 
 int main(int argc, char** argv) {
+
+
+
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
     glutInitWindowSize(1000, 1000);

@@ -36,14 +36,14 @@ public:
 
     void setHoles(std::vector<std::pair<double, double>> points);
     
+    std::vector<std::vector<std::pair<double, double>>> triang();
+
     bool isCounterClockwise(Face* face) const;
     Face* findFacePoint(double x, double y) const;
     std::pair<double, double> getInnerPoint(HalfEdge* start) const;
     static void merge(Dcel& dest, Dcel& a);
     void print() const;
-    void fix();
-    void dfs() const;
-    void test(Dcel& a, Dcel&b);
+    
 };
 
 

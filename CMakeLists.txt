@@ -33,6 +33,8 @@ set(SOURCES
     src/render.cpp
     src/genran.h 
     src/genran.cpp 
+    src/eventT.h 
+    src/eventT.cpp
 )
 
 # Создание исполняемого файла

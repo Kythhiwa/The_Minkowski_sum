@@ -177,6 +177,30 @@ src/eventI.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/the_minkowski_sum.dir/build.make CMakeFiles/the_minkowski_sum.dir/src/eventI.cpp.s
 .PHONY : src/eventI.cpp.s
 
+src/eventT.o: src/eventT.cpp.o
+.PHONY : src/eventT.o
+
+# target to build an object file
+src/eventT.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/the_minkowski_sum.dir/build.make CMakeFiles/the_minkowski_sum.dir/src/eventT.cpp.o
+.PHONY : src/eventT.cpp.o
+
+src/eventT.i: src/eventT.cpp.i
+.PHONY : src/eventT.i
+
+# target to preprocess a source file
+src/eventT.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/the_minkowski_sum.dir/build.make CMakeFiles/the_minkowski_sum.dir/src/eventT.cpp.i
+.PHONY : src/eventT.cpp.i
+
+src/eventT.s: src/eventT.cpp.s
+.PHONY : src/eventT.s
+
+# target to generate assembly for a file
+src/eventT.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/the_minkowski_sum.dir/build.make CMakeFiles/the_minkowski_sum.dir/src/eventT.cpp.s
+.PHONY : src/eventT.cpp.s
+
 src/genran.o: src/genran.cpp.o
 .PHONY : src/genran.o
 
@@ -336,6 +360,9 @@ help:
 	@echo "... src/eventI.o"
 	@echo "... src/eventI.i"
 	@echo "... src/eventI.s"
+	@echo "... src/eventT.o"
+	@echo "... src/eventT.i"
+	@echo "... src/eventT.s"
 	@echo "... src/genran.o"
 	@echo "... src/genran.i"
 	@echo "... src/genran.s"
