@@ -21,10 +21,10 @@ void init(int a) {
 
     };
     std::vector<std::pair<double,double>> p21 ={
-        {-1.3, 1}, {-1, -1.3}, {1.2, -1}, {1, 1}
+        {-0.5, 1.2}, {-1.1, -0.5}, {1.1, -1}, {1, 1}
     };
     std::vector<std::pair<double,double>> p22 ={
-        {-0.5, 2}, {-2, -2}, {2, -2}, {2, 2}
+        {-0.5, 1.9}, {-2.1, -2}, {2.1, -2}, {2, 2.1}
     };
    std::vector<std::pair<double,double>> p1 = {
         {2, 3},
@@ -59,14 +59,16 @@ void init(int a) {
    for (const auto& v : d2.getVertex()) {
      //  std::cout << "{" << v->getX() << ", " << v->getY() << "},\n";
    }
-   Dcel::merge(c, d1);
+   //d1.setHoles(p21);
+   d1.triang();
+   //Dcel::merge(c, d1);
+   c.add(d1);
    // Dcel::merge(c, d2);
     //Dcel d4(p11);
     //d4.setHoles(p22);
-    c.print();
+    //c.print();
    // std::cout << "\n";
     std::cout <<"SOSSSSSSS\n";
-   d1.triang();
 }
 
 

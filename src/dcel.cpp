@@ -887,17 +887,105 @@ Event_T::Type determVertType(Vertex *v, Vertex *next, Vertex *prev, bool isHole)
     }
 }
 
+bool isRightChain(Event_T e) {
+    if (e.getNext()->getEndPoint()->getY() < e.getPrev()->getOrigin()->getY()) {
+        return false;
+    }
+    return true;
+}
+
+void Dcel::setDiag(Event_T x, Event_T y) {
+    Vertex*a = x.getVertex();
+    Vertex*b = y.getVertex();
+    HalfEdge *prev = x.getPrev(), *next = y.getPrev();
+
+    auto out = std::make_unique<HalfEdge>();
+    auto in = std::make_unique<HalfEdge>();
+    out->setPrev(prev);
+    out->setNext(next->getTwin());
+    in->setPrev(next);
+    in->setNext(prev->getTwin());
+
+    out->setId(a->getId());
+    in->setId(a->getId());
+    out->setTwin(in.get());
+    in->setTwin(out.get());
+    out->setOrigin(a);
+    in->setOrigin(b);
+    halfEdge.push_back(std::move(out));
+    halfEdge.push_back(std::move(in));
+}
+
+void Dcel::normalize(Dcel& a) {
+    face.clear();
+    std::set<HalfEdge*> us;
+    for (const auto& h : halfEdge) {
+        if (us.find(h.get()) != us.end()) continue;
+        auto fac = std::make_unique<Face>(vertex[0]->getId());
+        
+        HalfEdge* start = h.get();
+        HalfEdge* cur = start;
+        std::pair<double, double> p = getInnerPoint(start);
+        std::cout << p.first << " " << p.second << "\n";
+        fac->setOuterComponent(start);
+        do {
+
+            us.insert(cur);
+            cur->setIncidentFace(fac.get());
+            cur = cur->getNext();
+        
+        } while(start != cur);
+        Face *f = a.findFacePoint(p.first, p.second);
+        if (f == nullptr){
+            if (isCounterClockwise(fac.get())) {
+                fac->setType(Face::Type::OUTER);
+
+            std::cout << p.first << ":" << p.second <<"+OUT++\n";
+            } else {
+                 std::cout << p.first << ":" << p.second <<"+HO++\n";
+
+                fac->setType(Face::Type::HOLES);
+            }
+        }
+        else if (f->getType() == Face::Type::INNER) fac->setType(Face::Type::INNER);
+        else if (f->getType() == Face::Type::HOLES) fac->setType(Face::Type::HOLES);
+        face.push_back(std::move(fac));
+    }
+    for (const auto& v : vertex) {
+        v->setId(id_);
+    }
+    for (const auto& h : halfEdge) {
+        h->setId(id_);
+    }
+    for (const auto& f : face) {
+        f->setId(id_);
+    }
+
+}
+
+struct VertexYComparator {
+    bool operator()(Vertex* a, Vertex* b) const {
+        if (a->getY() != b->getY()) {
+            return a->getY() > b->getY();
+        }
+        return a->getX() < b->getX();
+    }
+};
 std::vector<std::vector<std::pair<double, double>>> Dcel::triang() {
+    Dcel a;
+    a.add(*this);
     std::vector<std::vector<std::pair<double, double>>> res;
     double cur_y = 1000;
     Sweepline T(cur_y);
     EventQueue<Event_T> Q;
+    std::map<Vertex*, Event_T> type;
     for (auto& f : face) {
         if (f->getType() == Face::Type::OUTER) {
             HalfEdge *start = f->getOuterComponent();
             HalfEdge *cur = start;
             do {
                 Event_T::Type t = determVertType(cur->getOrigin(), cur->getPrev()->getOrigin(), cur->getEndPoint(), false);
+                type[cur->getOrigin()] = Event_T(cur->getOrigin(), t, cur->getPrev(), cur);
                 Q.push(Event_T(cur->getOrigin(), t, cur->getPrev(), cur));
                 cur = cur->getNext();
             } while(cur!= start);
@@ -906,6 +994,7 @@ std::vector<std::vector<std::pair<double, double>>> Dcel::triang() {
             HalfEdge *cur = start;
             do {
                 Event_T::Type t = determVertType(cur->getOrigin(), cur->getPrev()->getOrigin(), cur->getEndPoint(), true);
+                type[cur->getOrigin()] = Event_T(cur->getOrigin(), t, cur->getPrev(), cur);
                 Q.push(Event_T(cur->getOrigin(), t, cur->getPrev(), cur));
 
                 cur = cur->getNext();
@@ -924,19 +1013,76 @@ std::vector<std::vector<std::pair<double, double>>> Dcel::triang() {
                 T.insert(event.getNext());
                 helper[event.getNext()] = event.getVertex();
                 break;
-            case Event_T::Type::SPLIT {
+            case Event_T::Type::SPLIT: {
                 HalfEdge* left = T.less(event.getVertex()->getX());
                 if (left != nullptr) {
                     std::cout << "DIAG\n";
                     helper[left]->print();
                     event.getVertex()->print();
                     std::cout << "ENDDIAG\n";
+                    setDiag(type[helper[left]], event);
                     helper[left] = event.getVertex();
+                    helper[event.getNext()] = event.getVertex();
                     T.insert(event.getNext());
                 }
                 break;
-            } case Event_T::Type::END {
-                if (determVertType(helper[event.getPrev()]) == Event_T::Type::MERGE) {
+            } case Event_T::Type::END: {
+                if (type[helper[event.getPrev()]].getType() == Event_T::Type::MERGE) {
+                    std::cout << "DIAG\n";
+                    helper[event.getPrev()]->print();
+                    event.getVertex()->print();
+                    std::cout << "ENDDIAG\n";
+                    setDiag(type[helper[event.getPrev()]], event);
+                }
+                T.erase(event.getPrev());
+                break;
+            } case Event_T::Type::MERGE : {
+                 if (type[helper[event.getPrev()]].getType() == Event_T::Type::MERGE) {
+                    std::cout << "DIAG\n";
+                    helper[event.getPrev()]->print();
+                    event.getVertex()->print();
+                    std::cout << "ENDDIAG\n";
+                    setDiag(type[helper[event.getPrev()]], event);
+                }
+                T.erase(event.getPrev());
+
+                HalfEdge* left = T.less(event.getVertex()->getX());
+                if (left != nullptr) {
+                    if (type[helper[left]].getType() == Event_T::Type::MERGE) {
+                        std::cout << "DIAG\n";
+                        helper[left]->print();
+                        event.getVertex()->print();
+                        std::cout << "ENDDIAG\n";
+                        setDiag(type[helper[left]], event);
+                    }
+                }
+                helper[left] = event.getVertex();
+                break;
+            } case Event_T::Type::REGULAR : {
+                if (!isRightChain(event)) {
+                    if (type[helper[event.getPrev()]].getType() == Event_T::Type::MERGE) {
+                        std::cout << "DIAG\n";
+                        helper[event.getPrev()]->print();
+                        event.getVertex()->print();
+                        std::cout << "ENDDIAG\n";
+                        setDiag(type[helper[event.getPrev()]], event);
+                    }
+                    T.erase(event.getPrev());
+                    T.insert(event.getNext());
+                    helper[event.getNext()] = event.getVertex();
+                } else {
+                    HalfEdge* left = T.less(event.getVertex()->getX());
+                    if (left != nullptr) {
+                        if (type[helper[left]].getType() == Event_T::Type::MERGE) {
+                            std::cout << "DIAG\n";
+                            helper[left]->print();
+                            event.getVertex()->print();
+                            std::cout << "ENDDIAG\n";
+
+                            setDiag(type[helper[left]], event);
+                        }
+                    }
+                    helper[left] = event.getVertex();
 
                 }
                 break;
@@ -944,6 +1090,30 @@ std::vector<std::vector<std::pair<double, double>>> Dcel::triang() {
             
         }
         
+    }
+    std::map<Vertex*, std::vector<HalfEdge*>> s;
+    for (const auto& h : halfEdge) {
+       s[h->getTwin()->getOrigin()].push_back(h.get());
+    }
+    for (auto [v, vh] : s) {
+        sortByAngle(vh);
+        for (size_t i = 0; i < vh.size(); i++) {
+            vh[i]->setNext(vh[(i + 1) % vh.size()]->getTwin());
+            vh[i]->getTwin()->setPrev(vh[(i - 1 + vh.size()) % vh.size()]);
+        }
+    }
+    
+    this->normalize(a);
+    
+    std::vector<Vertex*> V;
+    for (auto& v: vertex) V.push_back(v.get());
+    std::sort(V.begin(), V.end(), VertexYComparator());
+    for (auto now: V) now->print();
+    std::stack<Vertex> S;
+    S.push(V[0]);
+    S.push(V[1]);
+    for (int i = 3; i < V.size(); i++) {
+
     }
     return res;
 }

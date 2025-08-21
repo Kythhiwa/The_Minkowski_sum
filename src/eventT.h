@@ -16,6 +16,7 @@ private:
     HalfEdge *prev;
     HalfEdge *next;
 public:
+    Event_T()  {}
     Event_T(Vertex *v, Type t) : v(v), type(t) {}
     Event_T(Vertex *v, Type t, HalfEdge *p, HalfEdge *n) : v(v), type(t), prev(p), next(n) {}
 

@@ -15,6 +15,7 @@
 class Vertex;
 class HalfEdge;
 class Face;
+class Event_T;
 
 class Dcel {
     static int id;
@@ -22,11 +23,13 @@ class Dcel {
     std::vector<std::unique_ptr<HalfEdge>> halfEdge;
     std::vector<std::unique_ptr<Face>> face;
     int id_;
+    void setDiag(Event_T a, Event_T b);
 public:
     Dcel();
     Dcel(std::vector<std::pair<double, double>> points);
     ~Dcel();
 
+    void normalize(Dcel& a);
         
     static void solve(Dcel& dest, Dcel& a, Dcel& b);
     void add(const Dcel& source);
