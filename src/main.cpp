@@ -44,7 +44,7 @@ void init(int a) {
         {2, 0}
 
     };      
-    //p1 =  Random::getRandPolygon(7);
+    p1 =  Random::getRandPolygon(7);
     p2 =  Random::getRandPolygon(8);
     //p21 =  Random::getRandPolygon(8);
 
