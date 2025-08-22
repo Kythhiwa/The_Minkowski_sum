@@ -12,6 +12,7 @@
 #include <iomanip>
 #include <limits>
 #include <cfloat>
+#include <set>
 class Vertex;
 class HalfEdge;
 class Face;
@@ -24,6 +25,8 @@ class Dcel {
     std::vector<std::unique_ptr<Face>> face;
     int id_;
     void setDiag(Event_T a, Event_T b);
+    void addDiag(HalfEdge* f, HalfEdge *s);
+    void triangulateMonotonePolygon(HalfEdge* h, std::set<HalfEdge*> &us);
 public:
     Dcel();
     Dcel(std::vector<std::pair<double, double>> points);

@@ -27,12 +27,13 @@ void init(int a) {
         {-0.5, 1.9}, {-2.1, -2}, {2.1, -2}, {2, 2.1}
     };
    std::vector<std::pair<double,double>> p1 = {
-        {2, 3},
-        {2, 0},
-        {4, 1},
-        {6, -1},
-        {8, 2}
-    };
+       {1.71563, 4.54753},
+{4.18194, 3.8618},
+{6.96768, 2.89032},
+{6.16384, 4.96291},
+{7.46877, 6.78016},
+{3.44629, 7.70362},
+{2.65846, 6.49823}    };
 
     std::vector<std::pair<double,double>> p2 = {
         {2, -2},
@@ -43,8 +44,8 @@ void init(int a) {
         {2, 0}
 
     };      
-    p1 =  Random::getRandPolygon(7);
-    //p2 =  Random::getRandPolygon(8);
+    //p1 =  Random::getRandPolygon(7);
+    p2 =  Random::getRandPolygon(8);
     //p21 =  Random::getRandPolygon(8);
 
 
@@ -52,21 +53,21 @@ void init(int a) {
     Dcel d1(p1);
     Dcel d2(p2);
    for (const auto& v : d1.getVertex()) {
-   //    std::cout << "{" << v->getX() << ", " << v->getY() << "},\n";
+       std::cout << "{" << v->getX() << ", " << v->getY() << "},\n";
    }
    std::cout << "\n";
 
    for (const auto& v : d2.getVertex()) {
      //  std::cout << "{" << v->getX() << ", " << v->getY() << "},\n";
    }
-   //d1.setHoles(p21);
+  // d1.setHoles(p21);
    d1.triang();
    //Dcel::merge(c, d1);
    c.add(d1);
    // Dcel::merge(c, d2);
     //Dcel d4(p11);
     //d4.setHoles(p22);
-    //c.print();
+    c.print();
    // std::cout << "\n";
     std::cout <<"SOSSSSSSS\n";
 }

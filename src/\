@@ -918,17 +918,6 @@ void Dcel::setDiag(Event_T x, Event_T y) {
 }
 
 void Dcel::normalize(Dcel& a) {
-    std::map<Vertex*, std::vector<HalfEdge*>> s;
-    for (const auto& h : halfEdge) {
-       s[h->getTwin()->getOrigin()].push_back(h.get());
-    }
-    for (auto [v, vh] : s) {
-        sortByAngle(vh);
-        for (size_t i = 0; i < vh.size(); i++) {
-            vh[i]->setNext(vh[(i + 1) % vh.size()]->getTwin());
-            vh[i]->getTwin()->setPrev(vh[(i - 1 + vh.size()) % vh.size()]);
-        }
-    }
     face.clear();
     std::set<HalfEdge*> us;
     for (const auto& h : halfEdge) {
@@ -984,43 +973,16 @@ struct VertexYComparator {
     }
 };
 
-bool IsValidDiagonal(Vertex* current, Vertex* prev, Vertex* prevprev, bool f) {
-
-    double dx1 = prev->getX() - prevprev->getX();
-    double dy1 = prev->getY() - prevprev->getY();
+bool IsValidDiagonal(Vertex* current, Vertex* stackTop, Vertex* last) {
+    double dx1 = current->getX() - last->getX();
+    double dy1 = current->getY() - last->getY();
     
-    double dx2 = current->getX() - prevprev->getX();
-    double dy2 = current->getY() - prevprev->getY();
+    double dx2 = stackTop->getX() - last->getX();
+    double dy2 = stackTop->getY() - last->getY();
     
     double cross = dx1 * dy2 - dy1 * dx2;
-    if (f) {
-        return cross < 0;
-    }
+    
     return cross > 0;
-}
-
-
-void Dcel::addDiag(HalfEdge* f, HalfEdge *s) {
-    Vertex* a = f->getOrigin();
-    Vertex* b = s->getOrigin();
-    auto out = std::make_unique<HalfEdge>(*f);
-    auto in = std::make_unique<HalfEdge>(*f);
-    out->setTwin(in.get());
-    in->setTwin(out.get());
-    out->setOrigin(a);
-    in->setOrigin(b);
-    in->setNext(f);
-    in->setPrev(s->getPrev());
-    s->getPrev()->setNext(in.get());
-    out->setNext(s);
-    out->setPrev(f->getPrev());
-    f->getPrev()->setNext(out.get());
-    f->setPrev(in.get());
-    s->setPrev(out.get());
-    in->setIncidentFace(f->getIncidentFace());
-    out->setIncidentFace(s->getIncidentFace());
-    halfEdge.push_back(std::move(out));
-    halfEdge.push_back(std::move(in));
 }
 
 std::vector<std::vector<std::pair<double, double>>> Dcel::triang() {
@@ -1143,112 +1105,93 @@ std::vector<std::vector<std::pair<double, double>>> Dcel::triang() {
         }
         
     }
-    
+    std::map<Vertex*, std::vector<HalfEdge*>> s;
+    for (const auto& h : halfEdge) {
+       s[h->getTwin()->getOrigin()].push_back(h.get());
+    }
+    for (auto [v, vh] : s) {
+        sortByAngle(vh);
+        for (size_t i = 0; i < vh.size(); i++) {
+            vh[i]->setNext(vh[(i + 1) % vh.size()]->getTwin());
+            vh[i]->getTwin()->setPrev(vh[(i - 1 + vh.size()) % vh.size()]);
+        }
+    }
     this->normalize(a);
     std::set<HalfEdge*> us;
-    std::vector<HalfEdge*> hh;
-    for (const auto& now : halfEdge) hh.push_back(now.get());
-    for (const auto& h : hh) {
-        if (us.find(h) != us.end() || h->getIncidentFace()->getType() != Face::Type::INNER ) continue;
-        triangulateMonotonePolygon(h, us);
-        this->normalize(a);
+    for (const auto& h : halfEdge) {
+        if (us.find(h.get()) != us.end() || h->getIncidentFace()->getType() != Face::Type::INNER ) continue;
+        std::vector<Vertex*> V;
+
+        HalfEdge* start = h.get();
+        HalfEdge* cur = start;
+        do {
+            us.insert(cur);
+            V.push_back(cur->getOrigin());
+            cur = cur->getNext();
+        } while (start != cur);
+        std::sort(V.begin(), V.end(), VertexYComparator());
+        std::cout << "GRAN\n";
+        for (auto now: V) now->print();
+        std::cout << "GRANIT\n";
+        std::stack<Vertex*> S;
+        S.push(V[0]);
+        S.push(V[1]);
+        for (int i = 2; i < V.size(); i++) {
+            if (V[i] == S.top()) {
+                while (!S.empty()) {
+                    Vertex* v = S.top();
+                    if (S.size() != 1) {
+                        Event_T::Type t = determVertType(v, cur->getPrev()->getOrigin(), cur->getEndPoint(), false);
+                        Event_T a =  Event_T(v, t, v->getIncidentEdge()->getPrev(), v->getIncidentEdge());
+                        Event_T b =  Event_T(V[i], t, V[i]->getIncidentEdge()->getPrev(), V[i]->getIncidentEdge());
+                        setDiag(a,b);
+                    }
+                    S.pop();
+                }
+                S.push(V[i - 1]);
+                S.push(V[i]);
+            } else {
+                Vertex* last = S.top();
+                S.pop();
+                while (IsValidDiagonal(V[i], S.top(), last) && S.size() > 1) {
+                    last = S.top();
+                    S.pop();
+                    Event_T::Type t = determVertType(last, cur->getPrev()->getOrigin(), cur->getEndPoint(), false);
+                    Event_T a =  Event_T(last, t, last->getIncidentEdge()->getPrev(), last->getIncidentEdge());
+                    Event_T b =  Event_T(V[i], t, V[i]->getIncidentEdge()->getPrev(), V[i]->getIncidentEdge());
+                    setDiag(a,b);
+                }
+                S.push(last);
+                S.push(V[i]);
+            }
+        }
+        Vertex* l = V[V.size() - 1];
+        S.pop();
+        while (!S.empty()) {
+            Vertex* v = S.top();
+            if (S.size() != 1) {
+                Event_T::Type t = determVertType(v, cur->getPrev()->getOrigin(), cur->getEndPoint(), false);
+                Event_T a =  Event_T(v, t, v->getIncidentEdge()->getPrev(), v->getIncidentEdge());
+                Event_T b =  Event_T(l, t, l->getIncidentEdge()->getPrev(), l->getIncidentEdge());
+               setDiag(a,b);
+            }
+            S.pop();
+        }
+        std::map<Vertex*, std::vector<HalfEdge*>> s1;
+        for (const auto& h : halfEdge) {
+           s1[h->getTwin()->getOrigin()].push_back(h.get());
+        }
+        for (auto [v, vh] : s1) {
+            sortByAngle(vh);
+            for (size_t i = 0; i < vh.size(); i++) {
+                vh[i]->setNext(vh[(i + 1) % vh.size()]->getTwin());
+                vh[i]->getTwin()->setPrev(vh[(i - 1 + vh.size()) % vh.size()]);
+            }
+        }
+        
+    this->normalize(a);
     }
         
 
     return res;
-}
-
-
-void Dcel::triangulateMonotonePolygon(HalfEdge* h, std::set<HalfEdge*> &us) {
-    std::vector<Vertex*> V;
-    HalfEdge* start = h;
-    HalfEdge* cur = start;
-    std::set<Vertex*> rightChain;
-    std::set<Vertex*> leftChain;
-    std::map<Vertex*, HalfEdge*> m;
-    do {
-        m[cur->getOrigin()] = cur;
-        us.insert(cur);
-        V.push_back(cur->getOrigin());
-        cur = cur->getNext();
-    } while (start != cur);
-    std::sort(V.begin(), V.end(), VertexYComparator());
-    Vertex* H = V[0];
-    Vertex* L = V[V.size() - 1];
-    cur = m[H];
-
-    rightChain.insert(H);
-    rightChain.insert(L);
-
-    leftChain.insert(H);
-    leftChain.insert(L);
-    do {
-        rightChain.insert(cur->getOrigin());
-        cur = cur->getNext();
-    } while(cur->getOrigin() != L);
-    cur = m[L];
-    do {
-        leftChain.insert(cur->getOrigin());
-        cur = cur->getNext();
-    } while(cur->getOrigin() != H);
-
-    std::stack<Vertex*> S;
-    S.push(V[0]);
-    S.push(V[1]);
-    for (int i = 2; i < V.size(); i++) {
-
-        bool f =  ((leftChain.find(V[i]) != leftChain.end()) && (leftChain.find(S.top()) != leftChain.end()));
-        bool f1 =  ((rightChain.find(V[i]) != rightChain.end()) && (rightChain.find(S.top()) != rightChain.end()));
-        if (!f && !f1) {
-            std::cout << "NO EQUAL CHAIN: \n";
-            V[i]->print();
-            S.top()->print();
-            while (!S.empty()) {
-                if (S.size() != 1) {
-
-                std::cout << "ASSSSSSS";
-                    addDiag(m[S.top()], m[V[i]]);
-                }
-                S.pop();
-            }
-            S.push(V[i - 1]);
-            S.push(V[i]);
-        } else {
-            std::cout << "ON EQUAL CHAIBN: \n";
-            V[i]->print();
-            S.top()->print();
-
-            Vertex* last = S.top();
-            S.pop();
-            f = ((leftChain.find(last) != leftChain.end()) && (leftChain.find(V[i]) != leftChain.end()));
-            while (IsValidDiagonal(V[i], S.top(), last, f) && !S.empty()) {
-                last = S.top();
-                S.pop();
-                std::cout << "ASSSSSSS";
-                last->print();
-                V[i]->print();
-                addDiag(m[last], m[V[i]]);
-                if (S.empty()) break;
-            }
-
-            S.push(last);
-            S.push(V[i]);
-        }
-    }
-    return;
-    std::cout << "LAST\n";
-    if (!S.empty()) {
-        S.pop();
-        Vertex* lastVertex = V[V.size()-1]; // Самая нижняя вершина
-        
-        while (S.size() > 1) {
-            S.top()->print();
-            lastVertex->print();
-            addDiag(m[S.top()], m[lastVertex]);
-            S.pop();
-        }
-    }  
-
-    std::cout << "LASTrrr\n";
-
 }
