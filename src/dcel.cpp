@@ -436,31 +436,6 @@ bool isPointInsidePolygon(const std::vector<std::pair<double, double>>& polygon,
     }
     return inside;
 }
-std::pair<double, double> findPointInsidePolygon(const std::vector<std::pair<double, double>>& polygon) {
-
-    double center_x = 0, center_y = 0;
-    for (const auto& [x, y] : polygon) {
-        center_x += x;
-        center_y += y;
-    }
-    center_x /= polygon.size();
-    center_y /= polygon.size();
-
-    if (isPointInsidePolygon(polygon, center_x, center_y)) {
-        return {center_x, center_y}; 
-    }
-
-    for (const auto& [x, y] : polygon) {
-        double test_x = (center_x + x) / 2;
-        double test_y = (center_y + y) / 2;
-
-        if (isPointInsidePolygon(polygon, test_x, test_y)) {
-            return {test_x, test_y}; 
-        }
-    }
-
-    return {polygon[0].first, polygon[0].second};
-}
 
 std::pair<double, double> Dcel::getInnerPoint(HalfEdge* startEdge) const {
     Vertex* v1 = startEdge->getOrigin();
@@ -1167,6 +1142,7 @@ std::vector<std::vector<std::pair<double, double>>> Dcel::triang() {
     for (const auto& h : hh) {
         if (us.find(h) != us.end() || h->getIncidentFace()->getType() != Face::Type::INNER ) continue;
         triangulateMonotonePolygon(h, us);
+
     }
         
     this->normalize(a);
