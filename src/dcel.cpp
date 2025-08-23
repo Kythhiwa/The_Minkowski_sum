@@ -421,7 +421,6 @@ void Dcel::add(const Dcel& other) {
             vh[i]->getTwin()->setPrev(vh[(i - 1 + vh.size()) % vh.size()]);
         }
     }
-
 }
 
 bool isPointInsidePolygon(const std::vector<std::pair<double, double>>& polygon, double x, double y) {
@@ -464,63 +463,36 @@ std::pair<double, double> findPointInsidePolygon(const std::vector<std::pair<dou
 }
 
 std::pair<double, double> Dcel::getInnerPoint(HalfEdge* startEdge) const {
-    double area = 0.0;
-    HalfEdge* edge = startEdge;
-    double m_x = -1000000;
-    double m_y = -1000000;
-    do {
-        Vertex* v1 = edge->getOrigin();
-        Vertex* v2 = edge->getTwin()->getOrigin();
-        if (v1->getY() > m_y) {
-            m_y = v1->getY();
-            m_x = v1->getX();
-        }
-        if (v2->getY() > m_y) {
-            m_y = v2->getY();
-            m_x = v2->getX();
-        }
-
-        area += (v2->getX() - v1->getX()) * (v2->getY() + v1->getY());
-        edge = edge->getNext();
-    } while (edge != startEdge);
-
-    if (area < 0) return {m_x, m_y + Geometry::eps};
-
-    std::vector<std::pair<double, double>> vertices;
-    double min_x = DBL_MAX, max_x = -DBL_MAX;
-    double min_y = DBL_MAX, max_y = -DBL_MAX;
+    Vertex* v1 = startEdge->getOrigin();
+    Vertex* v2 = startEdge->getTwin()->getOrigin();
     
-    edge = startEdge;
-    do {
-        double x = edge->getOrigin()->getX();
-        double y = edge->getOrigin()->getY();
-        vertices.emplace_back(x, y);
-        
-        min_x = std::min(min_x, x);
-        max_x = std::max(max_x, x);
-        min_y = std::min(min_y, y);
-        max_y = std::max(max_y, y);
-        
-        edge = edge->getNext();
-    } while (edge != startEdge);
-    return findPointInsidePolygon(vertices);
-    const double eps = Geometry::eps * 2; 
-    double center_x = (min_x + max_x) / 2;
-    double center_y = (min_y + max_y) / 2;
+    double center_x = (v1->getX() + v2->getX()) / 2.0;
+    double center_y = (v1->getY() + v2->getY()) / 2.0;
     
-    double safe_x = center_x;
-    double safe_y = center_y;
+    double dir_x = v2->getX() - v1->getX();
+    double dir_y = v2->getY() - v1->getY();
     
-    if (center_x - min_x < eps) safe_x = min_x + eps;
-    if (max_x - center_x < eps) safe_x = max_x - eps;
-    if (center_y - min_y < eps) safe_y = min_y + eps;
-    if (max_y - center_y < eps) safe_y = max_y - eps;
-
-    return {safe_x, safe_y};
+    double norm_x = dir_y;
+    double norm_y = -dir_x;
+    
+    double length = std::sqrt(norm_x * norm_x + norm_y * norm_y);
+    if (length > Geometry::eps) {
+        norm_x /= length;
+        norm_y /= length;
+    }
+    
+    const double offset = Geometry::eps * 10; 
+    
+    double inner_x = center_x + norm_x * offset;
+    double inner_y = center_y + norm_y * offset;
+    
+    return {inner_x, inner_y};
 }
 
 void Dcel::solve(Dcel& dest, Dcel& a, Dcel& b) {
+    std::cout << "ASDASFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFfD\n";
     dest.face.clear();
+    b.print();
     std::set<HalfEdge*> us;
     for (const auto& h : dest.halfEdge) {
         if (us.find(h.get()) != us.end()) continue;
@@ -529,41 +501,85 @@ void Dcel::solve(Dcel& dest, Dcel& a, Dcel& b) {
         HalfEdge* start = h.get();
         HalfEdge* cur = start;
         std::pair<double, double> p = dest.getInnerPoint(start);
-        std::cout << p.first << " " << p.second << "\n";
+        //std::cout << p.first << " " << p.second << "\n";
         fac->setOuterComponent(start);
+        std::cout << "START\n";
         do {
-
+            cur->print();
             us.insert(cur);
             cur->setIncidentFace(fac.get());
             cur = cur->getNext();
         
         } while(start != cur);
+        std::cout << "END\n";
+
+        std::cout  << std::setprecision(10)<< p.first << " " << p.second << "\n";
         Face *f = a.findFacePoint(p.first, p.second), *s = b.findFacePoint(p.first, p.second);
+        if (f != nullptr) {
+            HalfEdge* start = f->getOuterComponent();
+            HalfEdge* cur = start;
+            std::cout << "START_FACE_GO\n";
+            do {
+                cur->print();
+                cur = cur->getNext();
+            } while(cur != start);
+            std::cout << (int)f->getType();
+            std::cout << "END_FACE_GO\n";
+        } else {
+            std::cout << "FNULL\n";
+        }
+        if (s != nullptr) {
+            HalfEdge* start = s->getOuterComponent();
+            HalfEdge* cur = start;
+            std::cout << "START_FACE_GO\n";
+            do {
+                cur->print();
+                cur = cur->getNext();
+            } while(cur != start);
+            std::cout << (int)s->getType();
+            std::cout << "END_FACE_GO\n";
+        } else {
+            std::cout << "FNULL\n";
+        }
+
         if (f == nullptr && s == nullptr ){
             if (dest.isCounterClockwise(fac.get())) {
                 fac->setType(Face::Type::OUTER);
-
-            std::cout << p.first << ":" << p.second <<"+OUT++\n";
+                std::cout << "OUTER\n";
+                std::cout << p.first << ":" << p.second <<"\n";
             } else {
-                 std::cout << p.first << ":" << p.second <<"+HO++\n";
+                std::cout << "HOLES\n";
+                 std::cout << p.first << ":" << p.second <<"+\n";
 
                 fac->setType(Face::Type::HOLES);
             }
         }
 
         else if (f == nullptr) {
-            if (s->getType() == Face::Type::INNER) fac->setType(Face::Type::INNER);
-            if (s->getType() == Face::Type::HOLES) fac->setType(Face::Type::HOLES);
-            std::cout << p.first << ":" << p.second <<"++++++%%%+++++++++++++++++++++++++++\n";
+            if (s->getType() == Face::Type::INNER) {
+                fac->setType(Face::Type::INNER);
+                std::cout << "INNER1\n";
+                std::cout << p.first << ":" << p.second <<"\n";
+            }
+            if (s->getType() == Face::Type::HOLES)  {
+                fac->setType(Face::Type::HOLES);
+                std::cout << "HOLES1\n";
+                std::cout << p.first << ":" << p.second <<"\n";
+         
+            }
         }
         else if (s == nullptr) {
             if (f->getType() == Face::Type::INNER) {
                 fac->setType(Face::Type::INNER);
-                std::cout << "INNER\n";
+                std::cout << "INNER2\n";
+                std::cout << p.first << ":" << p.second <<"\n";
             }
-            if (f->getType() == Face::Type::HOLES) fac->setType(Face::Type::HOLES);
+            if (f->getType() == Face::Type::HOLES){
+                std::cout << "HOLES2\n";
+                std::cout << p.first << ":" << p.second <<"HOLES\n";
+                fac->setType(Face::Type::HOLES);
+            }
 
-            std::cout << p.first << ":" << p.second <<"+++++++++++++++++++++++++++++++++++++\n";
         }
         else if (f->getType() == Face::Type::INNER && s->getType() == Face::Type::INNER) fac->setType(Face::Type::INNER);
         else if (f->getType() == Face::Type::HOLES && s->getType() == Face::Type::HOLES) fac->setType(Face::Type::HOLES);
@@ -598,9 +614,9 @@ void Dcel::solve(Dcel& dest, Dcel& a, Dcel& b) {
                 fa.push_back(std::make_unique<Face>(Face::Type::INNER));
                 fa.push_back(std::make_unique<Face>(Face::Type::OUTER));
             } else {
-                fa.push_back(std::make_unique<Face>(Face::Type::HOLES));
                 fa.push_back(std::make_unique<Face>(Face::Type::INNER));
 
+                fa.push_back(std::make_unique<Face>(Face::Type::HOLES));
             }
             
             for (size_t i = 0; i < ve.size(); ++i) {
@@ -651,7 +667,7 @@ void Dcel::solve(Dcel& dest, Dcel& a, Dcel& b) {
             }
         }
     }
-    dest.vertex.clear();
+      dest.vertex.clear();
 
     dest.halfEdge.clear();
 

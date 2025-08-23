@@ -1,7 +1,8 @@
 cmake_minimum_required(VERSION 3.10)
 project(The_Minkowski_sum)
 # Более явное указание на необходимость C++11
-
+set(CMAKE_BUILD_TYPE Debug)  # Устанавливает режим сборки по умолчанию
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g -O0")  # Добавляет отладочную информацию 
 # Настройка поиска OpenGL и GLUT
 set(OpenGL_GL_PREFERENCE GLVND)
 find_package(OpenGL REQUIRED)
