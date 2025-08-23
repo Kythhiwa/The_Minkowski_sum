@@ -44,7 +44,7 @@ void init(int a) {
         {2, 0}
 
     };      
-    p1 =  Random::getRandPolygon(7);
+    p1 =  Random::getRandPolygon(12);
     p2 =  Random::getRandPolygon(8);
     //p21 =  Random::getRandPolygon(8);
 
@@ -62,9 +62,10 @@ void init(int a) {
    }
   // d1.setHoles(p21);
    d1.triang();
-   //Dcel::merge(c, d1);
-   c.add(d1);
-   // Dcel::merge(c, d2);
+   d2.triang();
+   Dcel::merge(c, d1);
+    //c.add(d2);
+    Dcel::merge(c, d2);
     //Dcel d4(p11);
     //d4.setHoles(p22);
     c.print();

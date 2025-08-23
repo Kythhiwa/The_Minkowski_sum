@@ -1151,9 +1151,9 @@ std::vector<std::vector<std::pair<double, double>>> Dcel::triang() {
     for (const auto& h : hh) {
         if (us.find(h) != us.end() || h->getIncidentFace()->getType() != Face::Type::INNER ) continue;
         triangulateMonotonePolygon(h, us);
-        this->normalize(a);
     }
         
+    this->normalize(a);
 
     return res;
 }
@@ -1206,8 +1206,10 @@ void Dcel::triangulateMonotonePolygon(HalfEdge* h, std::set<HalfEdge*> &us) {
             while (!S.empty()) {
                 if (S.size() != 1) {
 
-                std::cout << "ASSSSSSS";
-                    addDiag(m[S.top()], m[V[i]]);
+                    std::cout << "DIAG\n";
+                    S.top()->print();
+                    V[i]->print();
+                    if (m[S.top()]->getEndPoint() != V[i] && m[V[i]]->getEndPoint() != S.top()) addDiag(m[S.top()], m[V[i]]);
                 }
                 S.pop();
             }
@@ -1224,10 +1226,10 @@ void Dcel::triangulateMonotonePolygon(HalfEdge* h, std::set<HalfEdge*> &us) {
             while (IsValidDiagonal(V[i], S.top(), last, f) && !S.empty()) {
                 last = S.top();
                 S.pop();
-                std::cout << "ASSSSSSS";
+                std::cout << "DIAn";
                 last->print();
                 V[i]->print();
-                addDiag(m[last], m[V[i]]);
+                 if (m[last]->getEndPoint() != V[i] && m[V[i]]->getEndPoint() != last) addDiag(m[V[i]], m[last]);
                 if (S.empty()) break;
             }
 
@@ -1239,7 +1241,7 @@ void Dcel::triangulateMonotonePolygon(HalfEdge* h, std::set<HalfEdge*> &us) {
     std::cout << "LAST\n";
     if (!S.empty()) {
         S.pop();
-        Vertex* lastVertex = V[V.size()-1]; // Самая нижняя вершина
+        Vertex* lastVertex = V[V.size()-1];
         
         while (S.size() > 1) {
             S.top()->print();
