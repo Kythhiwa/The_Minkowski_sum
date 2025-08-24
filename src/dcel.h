@@ -36,10 +36,11 @@ public:
         
     static void solve(Dcel& dest, Dcel& a, Dcel& b);
     void add(const Dcel& source);
+    void copy(const Dcel& source);
     const std::vector<Vertex*> getVertex() const;
     const std::vector<HalfEdge*> getHalfEdge() const;
     const std::vector<Face*> getFace() const;
-
+    
     void setHoles(std::vector<std::pair<double, double>> points);
     
     std::vector<std::vector<std::pair<double, double>>> triang();

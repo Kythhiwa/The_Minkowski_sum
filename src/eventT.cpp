@@ -7,14 +7,16 @@
 bool Event_T::operator==(const Event_T &other) const {
     return std::abs(v->getX()-other.v->getX()) < Geometry::eps && std::abs(v->getY()-other.v->getY()) < Geometry::eps;
 }
-bool Event_T::operator<(const Event_T &other) const {
-    if (std::abs(v->getY() - other.v->getY()) >= Geometry::eps) {
+bool Event_T::operator<(const Event_T & other) const {
+    if (v->getY() != other.v->getY()) {
         return v->getY() > other.v->getY();
     }
-    if (std::abs(v->getX() - other.v->getX()) >= Geometry::eps) {
+    
+    if (v->getX() != other.v->getX()) {
         return v->getX() < other.v->getX();
     }
-    return type > other.type;    
+    
+    return type > other.type;
 }
 
 void Event_T::print() const {
@@ -35,7 +37,7 @@ void Event_T::print() const {
         case MERGE:
             std::cout << "MERGE\n";
     }
-    std::cout <<  v->getX() << ":" << v->getY() << "\n";
+    std::cout << v->getX() << ":" << v->getY() << "\n";
     prev->print();
     next->print();
     std::cout << "~~~~~~~~~~~~~\n";

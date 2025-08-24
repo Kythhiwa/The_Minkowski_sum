@@ -17,8 +17,7 @@ Dcel canvas;
 
 
 void init(int a) {
-    double x = 5.000000018, y = 5.000000019;
-    std::cout << (x < y);
+    
     std::vector<std::pair<double,double>> p11 ={
          {-5, 5}, {-5, -5}, {5, -5}, {5, 5}
 
@@ -53,8 +52,8 @@ void init(int a) {
 {0.17217, 5.22106},
 {2.38096, 3.79234},
 {1.98598, 3.9728} };      
-    p1 =  Random::getRandPolygon(17);
-    p2 =  Random::getRandPolygon(16);
+    //p1 =  Random::getRandPolygon(17);
+    //p2 =  Random::getRandPolygon(16);
     //p21 =  Random::getRandPolygon(8);
 
 
@@ -69,7 +68,7 @@ void init(int a) {
    for (const auto& v : d2.getVertex()) {
        std::cout << "{" << v->getX() << ", " << v->getY() << "},\n";
    }
-  //d1.setHoles(p21);
+  d1.setHoles(p21);
    //d1.setHoles(p23);
    // d1.triang();
     Dcel::merge(d1, d2);
@@ -77,7 +76,7 @@ void init(int a) {
     canvas.copy(d1);
     
 
-    canvas.print();
+    //canvas.print();
 }
 
 

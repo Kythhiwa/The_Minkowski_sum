@@ -7,12 +7,31 @@
 #include "face.h"
 
 void Render::render(const Dcel &dcel) {
-
+    
     renderEdge(dcel, 0.65, 0.7, 0.8, 2);
     renderVertex(dcel, 0.98, 0.35, 0.38, 7);
 }
 
 
+void Render::renderColor(const Dcel& dcel, double r, double g, double b) {
+    Dcel k;
+    k.copy(dcel);
+    k.triang();
+    glColor3f(r, g, b);
+    std::set<HalfEdge*> us;
+    for (const auto& h : k.getHalfEdge()) {
+        if (us.find(h) != us.end() || h->getIncidentFace()->getType() != Face::Type::INNER) continue;
+        HalfEdge* cur = h;
+        glBegin(GL_TRIANGLE_FAN);
+        do {
+            glVertex2d(cur->getOrigin()->getX(), cur->getOrigin()->getY());
+            us.insert(cur);
+            cur = cur->getNext();
+        } while(cur != h);
+        glEnd();
+    }
+
+}
 
 void Render::renderVertex(const Dcel& dcel, double r, double g, double b, double size) {
     glColor3f(r,g,b);

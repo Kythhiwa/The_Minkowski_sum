@@ -60,9 +60,9 @@ Dcel::Dcel(std::vector<std::pair<double, double>> points) : id_(id++){
     for (auto& h: halfEdge) {
         if (h->isHorizontal()){
             if (h->getOrigin()->getX() > h->getEndPoint()->getX()) {
-                h->getOrigin()->setY(h->getOrigin()->getY() +  Geometry::eps);
+                h->getOrigin()->setY(h->getOrigin()->getY() + 10* Geometry::eps);
             } else {
-                h->getEndPoint()->setY(h->getEndPoint()->getY() + Geometry::eps);
+                h->getEndPoint()->setY(h->getEndPoint()->getY() +10* Geometry::eps);
             }
         }
     }
@@ -148,9 +148,9 @@ void Dcel::setHoles(std::vector<std::pair<double, double>> points) {
     for (auto& h: half) {
         if (h->isHorizontal()){
             if (h->getOrigin()->getX() > h->getEndPoint()->getX()) {
-                h->getOrigin()->setY(h->getOrigin()->getY() + Geometry::eps);
+                h->getOrigin()->setY(h->getOrigin()->getY() + 10*Geometry::eps);
             } else {
-                h->getEndPoint()->setY(h->getEndPoint()->getY() + Geometry::eps);
+                h->getEndPoint()->setY(h->getEndPoint()->getY() +10* Geometry::eps);
             }
         }
     }
@@ -421,6 +421,45 @@ void Dcel::add(const Dcel& other) {
             vh[i]->getTwin()->setPrev(vh[(i - 1 + vh.size()) % vh.size()]);
         }
     }
+}
+
+void Dcel::copy(const Dcel& other) {
+    std::map<const Vertex*, Vertex*> vertexMap;
+    std::map<const HalfEdge*, HalfEdge*> halfEdgeMap;
+    std::map<const Face*, Face*> faceMap;
+    std::set<HalfEdge*> del;
+    for (const auto& v: other.vertex) {
+        auto ve = std::make_unique<Vertex>(*v);
+        vertexMap[v.get()] = ve.get();
+        vertex.push_back(std::move(ve));
+    }
+
+    for (const auto& h: other.halfEdge) {       
+        auto ha = std::make_unique<HalfEdge>(*h);
+        halfEdgeMap[h.get()] = ha.get();
+        ha->setOrigin(vertexMap[h->getOrigin()]);
+        halfEdge.push_back(std::move(ha));
+    }
+
+    for (const auto& f: other.face) {
+        auto fa = std::make_unique<Face>(*f);
+        faceMap[f.get()] = fa.get();
+        
+        fa->setOuterComponent(halfEdgeMap[f->getOuterComponent()]);
+        face.push_back(std::move(fa));
+    }
+
+    for (const auto& v: other.vertex) {
+        vertexMap[v.get()]->setIncidentEdge(halfEdgeMap[v->getIncidentEdge()]);
+    }
+
+    for (const auto& h: other.halfEdge) {
+        halfEdgeMap[h.get()]->setNext(halfEdgeMap[h->getNext()]);
+        halfEdgeMap[h.get()]->setPrev(halfEdgeMap[h->getPrev()]);
+        halfEdgeMap[h.get()]->setTwin(halfEdgeMap[h->getTwin()]);
+        halfEdgeMap[h.get()]->setIncidentFace(faceMap[h->getIncidentFace()]);
+    }
+
 }
 
 bool isPointInsidePolygon(const std::vector<std::pair<double, double>>& polygon, double x, double y) {
@@ -856,7 +895,6 @@ Event_T::Type determVertType(Vertex *v, Vertex *next, Vertex *prev, bool isHole)
     
     bool isConvex = (crossProduct > 0); // CCW - выпуклая вершина
     bool isReflex = (crossProduct < 0);
-
     bool prevAbove = prev->getY() > v->getY();
     bool nextAbove = next->getY() > v->getY();
     bool prevBelow = prev->getY() < v->getY();
@@ -984,6 +1022,7 @@ bool IsValidDiagonal(Vertex* current, Vertex* prev, Vertex* prevprev, bool f) {
     double dy2 = current->getY() - prevprev->getY();
     
     double cross = dx1 * dy2 - dy1 * dx2;
+    if (std::abs(cross) < Geometry::eps) return false;
     if (f) {
         return cross < 0;
     }
@@ -1142,10 +1181,9 @@ std::vector<std::vector<std::pair<double, double>>> Dcel::triang() {
     for (const auto& h : hh) {
         if (us.find(h) != us.end() || h->getIncidentFace()->getType() != Face::Type::INNER ) continue;
         triangulateMonotonePolygon(h, us);
-
+        this->normalize(a);
     }
         
-    this->normalize(a);
 
     return res;
 }
@@ -1168,6 +1206,10 @@ void Dcel::triangulateMonotonePolygon(HalfEdge* h, std::set<HalfEdge*> &us) {
     Vertex* H = V[0];
     Vertex* L = V[V.size() - 1];
     cur = m[H];
+    std::cout << "VECTOR\n";
+    std::cout << std::setprecision(16);
+    for (auto now : V) now->print();
+    std::cout << "ENDVECTOR\n";
 
     rightChain.insert(H);
     rightChain.insert(L);
@@ -1183,6 +1225,14 @@ void Dcel::triangulateMonotonePolygon(HalfEdge* h, std::set<HalfEdge*> &us) {
         leftChain.insert(cur->getOrigin());
         cur = cur->getNext();
     } while(cur->getOrigin() != H);
+    std::cout  << "LEFTCHAIN\n";
+    for (const auto& q: leftChain) {
+        q->print();
+    }
+    std::cout  << "RIghtCHAIN\n";
+    for (const auto& q: rightChain) {
+        q->print();
+    }
 
     std::stack<Vertex*> S;
     S.push(V[0]);
@@ -1229,7 +1279,7 @@ void Dcel::triangulateMonotonePolygon(HalfEdge* h, std::set<HalfEdge*> &us) {
             S.push(V[i]);
         }
     }
-    return;
+   // return;
     std::cout << "LAST\n";
     if (!S.empty()) {
         S.pop();

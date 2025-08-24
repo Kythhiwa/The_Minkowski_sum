@@ -1,9 +1,10 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-
+#include <cmath>
+#include <limits>
 namespace Geometry {
-    inline constexpr double eps = 1e-8;
+    inline constexpr double eps = 1e-9;
 }
 
 
