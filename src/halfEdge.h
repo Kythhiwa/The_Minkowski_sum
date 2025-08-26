@@ -40,6 +40,9 @@ public:
     void setId(int x) {id_ = x; }
 
     void print() const;
+
+    bool operator<(const HalfEdge& other) const;
+
 };
 
 #endif

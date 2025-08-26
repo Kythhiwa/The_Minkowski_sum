@@ -2,6 +2,7 @@
 #include "vertex.h"
 #include "face.h" 
 #include "config.h"
+#include <cstdlib>
 
 bool HalfEdge::segmentsIntersect(HalfEdge *a, HalfEdge *b, Vertex &intersection) {
     if (a == nullptr || b == nullptr) return false;
@@ -74,4 +75,22 @@ void HalfEdge::print() const {
     std::cout << "(" <<origin_->getX() << ":" << origin_->getY() << ")->(";
     std::cout << getEndPoint()->getX() << ":" << getEndPoint()->getY() << ")\n";
 
+}
+
+bool HalfEdge::operator<(const HalfEdge& other) const {
+    if (std::abs(origin_->getX() - other.origin_->getX()) >= Geometry::eps) {
+        return origin_->getX() < other.origin_->getX();
+    }
+    if (std::abs(origin_->getY() - other.origin_->getY()) >= Geometry::eps) {
+        return origin_->getY() < other.origin_->getY();
+    }
+    
+    if (std::abs(getEndPoint()->getX() - other.getEndPoint()->getX()) >= Geometry::eps) {
+        return getEndPoint()->getX() < other.getEndPoint()->getX();
+    }
+    if (std::abs(getEndPoint()->getY() - other.getEndPoint()->getY()) >= Geometry::eps) {
+        return getEndPoint()->getY() < other.getEndPoint()->getY();
+    }
+    
+    return false; // рёбра идентич
 }

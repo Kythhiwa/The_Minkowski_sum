@@ -31,7 +31,8 @@ public:
     Dcel();
     Dcel(std::vector<std::pair<double, double>> points);
     ~Dcel();
-
+    void clear();
+    void reflect();
     void normalize(Dcel& a);
         
     static void solve(Dcel& dest, Dcel& a, Dcel& b);
@@ -42,13 +43,15 @@ public:
     const std::vector<Face*> getFace() const;
     
     void setHoles(std::vector<std::pair<double, double>> points);
-    
+    void setid(int id) {id_ = id;}
     std::vector<std::vector<std::pair<double, double>>> triang();
 
     bool isCounterClockwise(Face* face) const;
     Face* findFacePoint(double x, double y) const;
     std::pair<double, double> getInnerPoint(HalfEdge* start) const;
     static void merge(Dcel& dest, Dcel& a);
+    static void merger(Dcel& dest, Dcel& a, Dcel& t);
+    static void minkowskiSum(Dcel& res, Dcel& a, Dcel& b);
     void print() const;
     
 };

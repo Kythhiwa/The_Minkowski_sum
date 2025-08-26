@@ -7,12 +7,45 @@
 #include "face.h"
 
 void Render::render(const Dcel &dcel) {
-    
+    renderAxes();
     renderEdge(dcel, 0.65, 0.7, 0.8, 2);
     renderVertex(dcel, 0.98, 0.35, 0.38, 7);
 }
 
 
+void Render::renderAxes() {
+    GLfloat currentColor[4];
+    glGetFloatv(GL_CURRENT_COLOR, currentColor);
+    
+    glLineWidth(1.5);
+    glColor3f(0.5, 0.5, 0.5); 
+    
+    glBegin(GL_LINES);
+    glVertex2f(-1000.0f, 0.0f); 
+    glVertex2f(1000.0f, 0.0f);  
+    glEnd();
+    
+    
+    glBegin(GL_LINES);
+    glVertex2f(0.0f, -1000.0f);  
+    glVertex2f(0.0f, 1000.0f); 
+    glEnd();
+    
+       
+    glColor3f(0.7, 0.7, 0.7);
+    
+    glRasterPos2f(5.95f, -0.05f);
+    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, 'X');
+    
+    glRasterPos2f(-0.05f, 5.95f);
+    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, 'Y');
+    
+    glRasterPos2f(-0.05f, -0.05f);
+    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, '0');
+    
+    glColor3fv(currentColor);
+    glLineWidth(1.0);
+}
 void Render::renderColor(const Dcel& dcel, double r, double g, double b) {
     Dcel k;
     k.copy(dcel);
@@ -55,6 +88,7 @@ void Render::renderVertex(const Dcel& dcel, double r, double g, double b, double
         }
     }
 }
+
 
 
 void Render::renderEdge(const Dcel& dcel, double r, double g, double b, double size) {

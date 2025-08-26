@@ -8,7 +8,7 @@ bool Event_T::operator==(const Event_T &other) const {
     return std::abs(v->getX()-other.v->getX()) < Geometry::eps && std::abs(v->getY()-other.v->getY()) < Geometry::eps;
 }
 bool Event_T::operator<(const Event_T & other) const {
-    if (v->getY() != other.v->getY()) {
+    if (v->getY() - other.v->getY()) {
         return v->getY() > other.v->getY();
     }
     

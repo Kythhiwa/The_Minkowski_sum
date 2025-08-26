@@ -4,6 +4,7 @@
 #include <vector>
 #include <cmath>
 #include <iostream>
+#include <set>
 
 class Vertex;
 class HalfEdge;
@@ -12,17 +13,27 @@ class Event {
 public:
     enum Type {START, END, INTERSECION};
 private:
+    struct HalfEdgeComparator {
+        bool operator()(const HalfEdge* a, const HalfEdge* b) const;
+    };
     Type type;
     Vertex *v;
-    std::vector<HalfEdge*> edges;
+    std::set<HalfEdge*, HalfEdgeComparator> edges;
+    bool f;
 public:
-    Event(Vertex *v, Type t) : v(v), type(t) {}
+    Event(Vertex *v, Type t, bool f = false) : v(v), type(t), f(f) {}
 
     Vertex* getVertex() {return v; }
     
     Type getType() const {return type; }
     const Vertex* getVertex() const {return v;}
-    std::vector<HalfEdge*> getEdges() const {return edges; }
+    std::vector<HalfEdge*> getEdges() const {
+        std::vector<HalfEdge*> v;
+        for (auto &now : edges) {
+            v.push_back(now);
+        }
+        return v; 
+    }
 
     static Event eventStart(Vertex *v) {
         Event e(v, START);
@@ -34,13 +45,18 @@ public:
         return e;
     }
 
-    static Event eventInt(Vertex *v) {
-        Event e(v, INTERSECION);
+    static Event eventInt(Vertex *v, bool f = false) {
+        Event e(v, INTERSECION, f);
         return e;
     }
+    bool getF(){ return f;}
 
-    void setEdges(std::vector<HalfEdge*> e) {
-        edges = e;
+    void setF(bool f_) {f = f_;}
+
+    void setEdges(std::set<HalfEdge*> e) {
+        for (auto& now : e) {
+            edges.insert(now);
+        }
     }
 
     void merge(const Event &other);
