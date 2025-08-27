@@ -32,7 +32,7 @@ void init(int a) {
 
     };
     std::vector<std::pair<double,double>> p21 ={
-        {-0.5, 1.2}, {-1.1, -0.12}, {1.1, -0.2}, {1, 1}
+        {-0.5, 1.2}, {-1.1, -0.12}, {1.1, -0.2}, {1, 1}, {0, 0.3}
     };
     std::vector<std::pair<double,double>> p22 ={
         
@@ -60,55 +60,45 @@ void init(int a) {
     };
     std::vector<std::pair<double, double>> p4 = {
 
-      {2.3, 3.5},
-{2.7, 3.5001},
-{6.2, 5.3002},
-{5.8, 7.5001},
-{3.5, 7.5},
-{2.3, 5.7}
-      };
+      {2, 1.2},
+{4, 2.2},
+{4, 5.01},
+{2, 6.01},
+{1.8, 3.21},
+{1.8, 1.21}      };
 std::vector<std::pair<double, double>> p3 = {
 
-{5.8, 7.5001},
-{2.3, 5.7},
-{2.3, 3.5},
-{2.3, 2.3},
-{5.8, 2.3001},
-{6.2, 2.3002},
-{6.2, 5.3002}
+{1.8, 1.01},
+{2.3, 1.21},
+{4.3, 2.21},
+{2.3, 3.21},
+{2, 3.2},
+{1.8, 3.01}      };
 
-      };
+       //p23 =  Random::getRandPolygon(8);
 
-    p1 =  Random::getRandPolygon(5);
+   
+     p1 =  Random::getRandPolygon(9);
     p2 =  Random::getRandPolygon(5);
-    //p23 =  Random::getRandPolygon(8);
 
-    p1 = {
-        {-0.3, 0},
-        {0.3, 0},
-        {0.15, 0.3},
-        {-0.15, 0.3}
-    };
-
-    p2 = {
-        {2,2},
-        {10,2},
-        {9, 7},
-        {8, 4},
-        {7, 7},
-        {6, 4},
-        {5, 7},
-        {4, 4},
-        {3, 7}
-    };
     Dcel d1(p1);
     Dcel d2(p2);
     Dcel d3(p3);
     Dcel d4(p4);
-    
-   for (const auto& v : d1.getHalfEdge()) {
-       v->print();
-   }
+    std::vector<std::pair<double,double>> p5 = {
+        {-1, 1}, {-1, -1}, {1, -1}, {1, 1} 
+   };
+
+    std::vector<std::pair<double,double>> p6 = {
+      {-1, 0.5}, {-1, -0.5}, {1, 0} 
+    };
+p5 =  Random::getRandPolygon(8);
+
+p6 =  Random::getRandPolygon(8);
+
+    Dcel d5(p21);
+    Dcel d6(p6);
+   
 
    
         //return;
@@ -118,22 +108,23 @@ std::vector<std::pair<double, double>> p3 = {
     //d1.triang();
    std::cout << std::setprecision(10);
     Dcel res;
-     Dcel::minkowskiSum(res, d1, d2);
+     Dcel::minkowskiSum(res, d1, d5);
     //canvas.copy(res);
     //d1.reflect();
     //Dcel t;
-    //Dcel::merger(d4,d3, res);
+        //Dcel::merger(d5,d6, res);
     //t.copy(res);
     //res.clear();
     //Dcel::merger(t, d2, res);
     //t.copy(res);
    //canvas.copy(res);
    //canvas.copy(d3);
-   d1.reflect();
+   d5.reflect();
    //canvas.copy(res);
    canvas.copy(res);
+   //d2.triang();
+  canvas.copy(d5);
    canvas.copy(d1);
-   canvas.copy(d2);
    // t.~t();
     canvas.print();
 }

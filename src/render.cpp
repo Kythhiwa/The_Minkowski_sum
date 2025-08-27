@@ -9,7 +9,7 @@
 void Render::render(const Dcel &dcel) {
     renderAxes();
     renderEdge(dcel, 0.65, 0.7, 0.8, 2);
-    renderVertex(dcel, 0.98, 0.35, 0.38, 7);
+    //renderVertex(dcel, 0.98, 0.35, 0.38, 7);
 }
 
 

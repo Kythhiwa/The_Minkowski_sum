@@ -14,13 +14,16 @@ double Sweepline::SweeplineComparator::getIntX(const HalfEdge *e) const {
 }
 
 bool Sweepline::SweeplineComparator::operator()(const HalfEdge *a, const HalfEdge *b)  const {
-
+    //std::cout << "operator()\n";
+   // a->print();
+   // b->print();
     double x_a = getIntX(a);
     double x_b = getIntX(b);
+    //std::cout << x_a << " " << x_b << "\n";
     if (std::abs(x_a - x_b) >= Geometry::eps) {
         return x_a < x_b;
     }
-
+    
     const Vertex* a1 = a->getOrigin();
     const Vertex* a2 = a->getEndPoint();
     const Vertex* b1 = b->getOrigin();
@@ -29,14 +32,17 @@ bool Sweepline::SweeplineComparator::operator()(const HalfEdge *a, const HalfEdg
 
     double slope_a = (a2->getX() - a1->getX()) / (a2->getY() - a1->getY());
     double slope_b = (b2->getX() - b1->getX()) / (b2->getY() - b1->getY());
+    std::cout << slope_a << " " << slope_b << "\n";
     return slope_a > slope_b;
 }
 
 bool Sweepline::SweeplineComparator::operator()(double x, HalfEdge *a) const {
+    //std::cout << "INTe >" << getIntX(a) << "\n";
     return getIntX(a) > x;
 }
 
 bool Sweepline::SweeplineComparator::operator()(HalfEdge *a, double x) const {
+    //std::cout << "INTe <" << getIntX(a) << "\n";
     return getIntX(a) < x;
 }
 
@@ -57,8 +63,19 @@ HalfEdge* Sweepline::bigger(double x) const {
     return (it != T.end()) ? *it : nullptr;
 }
 
+HalfEdge* Sweepline::bigger(HalfEdge* x) const{
+    auto it = T.upper_bound(x); // > x 
+    return (it != T.end()) ? *it : nullptr;
+
+}
+
 HalfEdge* Sweepline::less(double x) const {
     auto it = T.lower_bound(x); // >= x
+    return (it != T.begin()) ? *std::prev(it) : nullptr;
+}
+
+HalfEdge* Sweepline::less(HalfEdge* x) const {
+    auto it = T.lower_bound(x);
     return (it != T.begin()) ? *std::prev(it) : nullptr;
 }
 

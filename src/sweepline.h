@@ -31,7 +31,9 @@ public:
     void setY(double y) {current_y = y; };
     
     HalfEdge* bigger(double x) const;
+    HalfEdge* bigger(HalfEdge* x) const;
     HalfEdge* less(double x) const;
+    HalfEdge* less(HalfEdge* x) const;
 
     void print() const;
 
