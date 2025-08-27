@@ -14,7 +14,7 @@ class Sweepline{
         const double *sweepline_y;
         SweeplineComparator(const double *y) : sweepline_y(y) {}
 
-        double getIntX(const HalfEdge *edge) const; // X координата пересечения с sweepline 
+        double getIntX(const HalfEdge *edge) const; 
 
         bool operator()(const HalfEdge *a, const HalfEdge *b) const;
         bool operator()(double x, HalfEdge *a) const;

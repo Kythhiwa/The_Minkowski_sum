@@ -14,7 +14,7 @@ public:
     };
 private:
     HalfEdge *outerComponent_;
-    std::vector<HalfEdge*> holes_; // каждое ребро обозначает свою дыру
+    std::vector<HalfEdge*> holes_; 
     Type type_;
     int id_;
 public:

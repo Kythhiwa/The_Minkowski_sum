@@ -11,7 +11,6 @@ public:
     void push(const Event &event) {
         auto it  = Q.find(event);
         if (it != Q.end()) {
-            std::cout << "FIND\n";
             const_cast<Event&>(*it).merge(event);
         } else {
             Q.insert(event);

@@ -15,118 +15,70 @@ Dcel canvas;
 
 
 
+void test1(std::vector<std::pair<double,double>> &p1, std::vector<std::pair<double,double>> &p2) {
+    p1 = {
+        {-0.3, 0},{0.3, 0},{0.15, 0.3},{-0.15, 0.3}
+    };
+    p2 = {
+        {2,2},{10,2},{9.1, 7},{8, 4},{7, 7},{6, 4},{5, 7},{4, 4},{3, 7}
+    };    
+}
 
-void init(int a) {
-    double x = 5.000000018, y = 5.000000019;
-    std::cout << (x < y);
-    std::vector<std::pair<double,double>> p11 ={
-         
-       
-        {5, 0},
-       {5, 2},
-      {3, 3},
-      {2, 2.5},
-      {1, 3},
-      {2, -1.1}
-
-
-    };
-    std::vector<std::pair<double,double>> p21 ={
-        {-0.5, 1.2}, {-1.1, -0.12}, {1.1, -0.2}, {1, 1}, {0, 0.3}
-    };
-    std::vector<std::pair<double,double>> p22 ={
-        
-        {1, -1},
-        {3, -1.1},
-    {5, 0},
-    {3, 2},
-    {1, 3}
-    };
- std::vector<std::pair<double,double>> p23 ={
-      
-     {3, -0.99999999},
-     {5, 1.000000005e-08},
-     {5, 2},
-     {3, 3},
-     {2, 2.5},
-     {2, 0.5}
-    };
-   std::vector<std::pair<double,double>> p1 = {
+void test2(std::vector<std::pair<double,double>> &p1, std::vector<std::pair<double,double>> &p2) {
+    p1 = {
         {-1, 1}, {-1, -1}, {1, -1}, {1, 1}, {0, 0.5} 
-   };
-
-    std::vector<std::pair<double,double>> p2 = {
-      {2, 2}, {2, 0}, {4, 1} 
     };
-    std::vector<std::pair<double, double>> p4 = {
+    p2 = {
+      {2, 3}, {2.3, 1}, {4, 2} 
+    };
+}
+void testR(std::vector<std::pair<double,double>> &p1, std::vector<std::pair<double,double>> &p2) {
+    p1 = {
+        {-1, 1}, {-1, -1}, {1, -1}, {1, 1}, {0, 0.5} 
+    };
+    p2 =  Random::getRandPolygon(8);
+}
 
-      {2, 1.2},
-{4, 2.2},
-{4, 5.01},
-{2, 6.01},
-{1.8, 3.21},
-{1.8, 1.21}      };
-std::vector<std::pair<double, double>> p3 = {
+void test3(std::vector<std::pair<double,double>> &p1, std::vector<std::pair<double,double>> &p2) {
+    p1 = {
+        {-0.3, -0.3}, {0.3, -0.3}, {-0.3, 2} 
+    };
+    p2 = {
+      {2.5, 2.5}, {6, 2.5}, {6, 6}, {4, 6}, {2.5, 4} 
+    };
+}
+void test4(std::vector<std::pair<double,double>> &p1, std::vector<std::pair<double,double>> &p2) {
+    p1 = {
+        {0,0}, {2, 3}, {0, 2}, {-1, 4}, {-2, 2}
+    };
+    p2 = {
+      {2.5, 2.5}, {6, 2.5}, {6, 6}, {4, 6}, {2.5, 4} 
+    };
+}
+void test5(std::vector<std::pair<double,double>> &p1, std::vector<std::pair<double,double>> &p2) {
+    p1 = {
+        {0,0}, {2, 3}, {0, 2}, {-1, 4}, {-2, 2}
+    };
+    p2 = {
+        {6,6}, {5, 4}, {6, 2}, {8, 6}, {7, 7}, {4, 6} 
+    };
+}
 
-{1.8, 1.01},
-{2.3, 1.21},
-{4.3, 2.21},
-{2.3, 3.21},
-{2, 3.2},
-{1.8, 3.01}      };
-
-       //p23 =  Random::getRandPolygon(8);
-
-   
-     p1 =  Random::getRandPolygon(9);
-    p2 =  Random::getRandPolygon(5);
+void solve() {
+    std::vector<std::pair<double,double>> p1;
+    std::vector<std::pair<double,double>> p2;
+    
+    test5(p1, p2);
 
     Dcel d1(p1);
     Dcel d2(p2);
-    Dcel d3(p3);
-    Dcel d4(p4);
-    std::vector<std::pair<double,double>> p5 = {
-        {-1, 1}, {-1, -1}, {1, -1}, {1, 1} 
-   };
-
-    std::vector<std::pair<double,double>> p6 = {
-      {-1, 0.5}, {-1, -0.5}, {1, 0} 
-    };
-p5 =  Random::getRandPolygon(8);
-
-p6 =  Random::getRandPolygon(8);
-
-    Dcel d5(p21);
-    Dcel d6(p6);
-   
-
-   
-        //return;
-  //d1.setHoles(p21);
-   //d1.setHoles(p23);
-   // d1.triang();
-    //d1.triang();
-   std::cout << std::setprecision(10);
     Dcel res;
-     Dcel::minkowskiSum(res, d1, d5);
-    //canvas.copy(res);
-    //d1.reflect();
-    //Dcel t;
-        //Dcel::merger(d5,d6, res);
-    //t.copy(res);
-    //res.clear();
-    //Dcel::merger(t, d2, res);
-    //t.copy(res);
-   //canvas.copy(res);
-   //canvas.copy(d3);
-   d5.reflect();
-   //canvas.copy(res);
-   canvas.copy(res);
-   //d2.triang();
-  canvas.copy(d5);
-   canvas.copy(d1);
-   // t.~t();
-    canvas.print();
+    Dcel::minkowskiSum(res, d1, d2);
+    d1.reflect();
+    canvas.copy(res);
+    canvas.copy(d1);
+    canvas.copy(d2);
+
 }
 
 
@@ -144,13 +96,14 @@ int main(int argc, char** argv) {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
     glutInitWindowSize(1000, 1000);
-    glutCreateWindow("DCEL Viewer");
+    glutCreateWindow("Msum");
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    double a = 10;
+    double a = 12;
     gluOrtho2D(-a, a, -a, a); 
     glMatrixMode(GL_MODELVIEW);
-    init(a);
+    //init(a);
+    solve();
     glutDisplayFunc(display);
     
 

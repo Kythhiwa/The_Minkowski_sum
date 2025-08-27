@@ -27,6 +27,7 @@ class Dcel {
     void setDiag(Event_T a, Event_T b);
     void addDiag(HalfEdge* f, HalfEdge *s);
     void triangulateMonotonePolygon(HalfEdge* h, std::set<HalfEdge*> &us);
+
 public:
     Dcel();
     Dcel(std::vector<std::pair<double, double>> points);
@@ -36,7 +37,6 @@ public:
     void normalize(Dcel& a);
         
     static void solve(Dcel& dest, Dcel& a, Dcel& b);
-    void add(const Dcel& source);
     void copy(const Dcel& source);
     const std::vector<Vertex*> getVertex() const;
     const std::vector<HalfEdge*> getHalfEdge() const;
@@ -44,12 +44,12 @@ public:
     
     void setHoles(std::vector<std::pair<double, double>> points);
     void setid(int id) {id_ = id;}
+    int getid() {return id_; }
     std::vector<std::vector<std::pair<double, double>>> triang();
 
     bool isCounterClockwise(Face* face) const;
     Face* findFacePoint(double x, double y) const;
     std::pair<double, double> getInnerPoint(HalfEdge* start) const;
-    static void merge(Dcel& dest, Dcel& a);
     static void merger(Dcel& dest, Dcel& a, Dcel& t);
     static void minkowskiSum(Dcel& res, Dcel& a, Dcel& b);
     void print() const;

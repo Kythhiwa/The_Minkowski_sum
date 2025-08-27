@@ -14,12 +14,8 @@ double Sweepline::SweeplineComparator::getIntX(const HalfEdge *e) const {
 }
 
 bool Sweepline::SweeplineComparator::operator()(const HalfEdge *a, const HalfEdge *b)  const {
-    //std::cout << "operator()\n";
-   // a->print();
-   // b->print();
     double x_a = getIntX(a);
     double x_b = getIntX(b);
-    //std::cout << x_a << " " << x_b << "\n";
     if (std::abs(x_a - x_b) >= Geometry::eps) {
         return x_a < x_b;
     }
@@ -32,7 +28,6 @@ bool Sweepline::SweeplineComparator::operator()(const HalfEdge *a, const HalfEdg
 
     double slope_a = (a2->getX() - a1->getX()) / (a2->getY() - a1->getY());
     double slope_b = (b2->getX() - b1->getX()) / (b2->getY() - b1->getY());
-    std::cout << slope_a << " " << slope_b << "\n";
     return slope_a > slope_b;
 }
 
